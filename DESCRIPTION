@@ -1,0 +1,20 @@
+Package: maize
+Title: Specialty Kernels for SVMs
+Version: 0.0.0.9000
+Authors@R: 
+    person("Frankie T.", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre"))
+Description: Bindings for svm kernels via kernlab for use with the
+    'parsnip' package. Specifically related to specialty kernels for 
+     support vector machines not available in parsnip. 
+     package includes laplace, bessel, spline, tanh, and anova rbf kernels. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    parsnip,
+    rlang,
+    tibble
+Depends: 
+    R (>= 2.10)
+LazyData: true
