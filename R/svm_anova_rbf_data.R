@@ -10,6 +10,7 @@ make_svm_anova_rbf <- function() {
   parsnip::set_model_engine("svm_anova_rbf", "classification", "kernlab")
   parsnip::set_model_engine("svm_anova_rbf", "regression", "kernlab")
   parsnip::set_dependency("svm_anova_rbf", "kernlab", "kernlab")
+  parsnip::set_dependency("svm_anova_rbf", "kernlab", "maize")
 
   parsnip::set_model_arg(
     model = "svm_anova_rbf",
@@ -25,16 +26,16 @@ make_svm_anova_rbf <- function() {
     eng = "kernlab",
     parsnip = "degree",
     original = "degree",
-    func = list(pkg = "dials", fun = "degree"),
+    func = list(pkg = "dials", fun = "degree_int"),
     has_submodel = FALSE
   )
 
   parsnip::set_model_arg(
     model = "svm_anova_rbf",
     eng = "kernlab",
-    parsnip = "anova_rbf_sigma",
+    parsnip = "rbf_sigma",
     original = "sigma",
-    func = list(pkg = "dials", fun = "anova_rbf_sigma"),
+    func = list(pkg = "dials", fun = "rbf_sigma"),
     has_submodel = FALSE
   )
 

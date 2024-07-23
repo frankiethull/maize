@@ -1,5 +1,5 @@
 make_svm_tanh <- function() {
-  
+
   parsnip::set_new_model("svm_tanh")
 
   parsnip::set_model_mode("svm_tanh", "classification")
@@ -10,6 +10,7 @@ make_svm_tanh <- function() {
   parsnip::set_model_engine("svm_tanh", "classification", "kernlab")
   parsnip::set_model_engine("svm_tanh", "regression", "kernlab")
   parsnip::set_dependency("svm_tanh", "kernlab", "kernlab")
+  parsnip::set_dependency("svm_tanh", "kernlab", "maize")
 
   parsnip::set_model_arg(
     model = "svm_tanh",

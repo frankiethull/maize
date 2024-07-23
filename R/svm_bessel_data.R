@@ -10,6 +10,7 @@ make_svm_bessel <- function() {
   parsnip::set_model_engine("svm_bessel", "classification", "kernlab")
   parsnip::set_model_engine("svm_bessel", "regression", "kernlab")
   parsnip::set_dependency("svm_bessel", "kernlab", "kernlab")
+  parsnip::set_dependency("svm_bessel", "kernlab", "maize")
 
   parsnip::set_model_arg(
     model = "svm_bessel",
