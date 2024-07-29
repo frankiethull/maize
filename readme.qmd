@@ -3,23 +3,40 @@ title: "{maize} package"
 format: gfm
 ---
 
+# maize <img src="man/figures/logo.png" align="right" height="139" alt="" />
+    
 ## what is {maize}?
-
+   
 {maize} is an extension library for support vector machines in tidymodels! The package consists of additional kernel bindings listed in {kernlab} that are not available in the {parsnip} package.   
 
 
-{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} currently includes five more kernels: laplace, bessel, anova rbf, spline, & hyperbolic tangent.    
-    
-## kernels and kernels
+{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} binds five more {kernlab} kernels: laplace, bessel, anova rbf, spline, & hyperbolic tangent. **Additionally, {maize} has a few experimental kernels added in the most recent update: cauchy and cossim. The goal is to add many more kernels compatible with kernlab and parsnip.**    
+
+## Example Overview    
+### corn kernels and svm kernels
 
 say we have three types of corn with different size kernels which create different height corn. we could (1) create a support vector machine that can predict the height of the corn given the kernel type and kernel size, we could also (2) predict the corn type given the kernel size and corn height. 
 
 
 #### corn kernel dataset 
 ```{r}
+#| message: false
+#| warning: false
 library(parsnip)
 library(maize)
 library(ggplot2)
+
+
+# use this later to create a classification field
+# -----------------------------------------------
+kernel_min <- corn_data$kernel_size |> min()
+kernel_max <- corn_data$kernel_size |> max()
+kernel_vec <- seq(kernel_min, kernel_max, by = 1)
+height_min <- corn_data$height |> min()
+height_max <- corn_data$height |> max() 
+height_vec <- seq(height_min, height_max, by = 1)
+corn_grid <- expand.grid(kernel_size = kernel_vec, height = height_vec)
+# -----------------------------------------------
 
 maize::corn_data |>
     ggplot() +
@@ -28,11 +45,11 @@ maize::corn_data |>
     labs(title = 'corn kernel data') 
 ```
 
-
-#### regression for corn kernel height given a specialty svm kernel
+## Regression
+### regression for corn kernel height given a specialty svm kernel
 
 ```{r}
-
+set.seed(31415)
 corn_train <- corn_data |> dplyr::sample_frac(.80)
 corn_test  <- corn_data |> dplyr::anti_join(corn_train)
 
@@ -44,7 +61,7 @@ corn_test  <- corn_data |> dplyr::anti_join(corn_train)
 
 
 # fit --
-set.seed(31415)
+
   svm_reg_fit <- svm_reg_spec |> fit(height ~ ., data = corn_train)
 
 # predictions --
@@ -61,7 +78,8 @@ corn_test |>
          subtitle = "corn height prediction") 
 ```
 
-#### classification of corn kernel type given a specialty svm kernel
+## Classification
+### classification of corn kernel type given a specialty svm kernel
 
 ```{r}
 # model params --
@@ -71,37 +89,95 @@ corn_test |>
     set_engine("kernlab")
   
 # fit --
-set.seed(31415)
   svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
 
 # predictions --
-preds <- predict(svm_cls_fit, corn_test, "class")
+preds <- predict(svm_cls_fit, corn_grid, "class")
+pred_grid <- corn_grid |> cbind(preds)
 
 # plot --
 corn_test |>
-  cbind(preds) |> 
-  dplyr::mutate(
-    correct = ifelse(type == .pred_class, "correct corn!", "not correct")
-  ) |>
-    ggplot() +
-    geom_point(aes(x = kernel_size, y = height,  color = correct), size = 2) +
-    theme_minimal() +
-    labs(title = 'Laplace Kernel SVM',
-         subtitle = "corn type prediction") 
+  ggplot() +
+  geom_tile(inherit.aes = FALSE,
+            data = pred_grid, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .8) + 
+  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
+  theme_minimal() +
+  labs(subtitle = "Laplacian Similarity Kernel") +
+  scale_fill_viridis_d() +
+  scale_color_manual(values = c("violet", "cyan", "orange"))
+
+```
+
+
+```{r}
+# model params --
+  svm_cls_spec <- 
+    svm_cossim(cost = 1, margin = 0.1) |> 
+    set_mode("classification") |>
+    set_engine("kernlab")
+  
+# fit --
+  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
+
+# predictions --
+preds <- predict(svm_cls_fit, corn_grid, "class")
+pred_grid <- corn_grid |> cbind(preds)
+
+# plot --
+corn_test |>
+  ggplot() +
+  geom_tile(inherit.aes = FALSE,
+            data = pred_grid, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .8) + 
+  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
+  theme_minimal() +
+  labs(subtitle = "Cossim Similarity Kernel") +
+  scale_fill_viridis_d() +
+  scale_color_manual(values = c("violet", "cyan", "orange"))
+
+```
+
+
+```{r}
+# model params --
+  svm_cls_spec <- 
+    svm_anova_rbf(cost = 1, margin = 0.1) |> 
+    set_mode("classification") |>
+    set_engine("kernlab")
+  
+# fit --
+  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
+
+# predictions --
+preds <- predict(svm_cls_fit, corn_grid, "class")
+pred_grid <- corn_grid |> cbind(preds)
+
+# plot --
+corn_test |>
+  ggplot() +
+  geom_tile(inherit.aes = FALSE,
+            data = pred_grid, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .8) + 
+  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
+  theme_minimal() +
+  labs(subtitle = "ANOVA RBF Similarity Kernel") +
+  scale_fill_viridis_d() +
+  scale_color_manual(values = c("violet", "cyan", "orange"))
+
 ```
 
 
 ## future enhancements
 
-although these five additions are all that are listed in {kernlab} atm, it is possible to add additional kernels through custom function. These can be added as a 'kernel' class in {kernlab} then used as the kernel for a new svm_ function in {maize}.      
-   
-future kernels to consider: isolation, sigmoid, others??? feel free to pull request or submit issue for some unique kernels.       
-     
-other ideas, swap the *ksvm* func for *lssvm* and bind both svm functions listed in {kernlab} (currently only supporting ksvm).    
-     
+additional kernels are always welcome & added periodically. The more novel, the better, this is my hope for {maize}. Other enhancements include adding *lssvm*, *rvm* and/or *kqr* engine bindings to parsnip.     
+
 ## references 
 
-this package is based off the initial parsnip code, kernlab documents, and tidymodels' developer guides. Mostly just copy/paste and connecting systems. I gave this a go after looking under the hood of bonsai and poissonreg packages managed by tidymodels team. Additionally, I saw an opportunity for a funny pun joke {kernels, parsnip, ~ maize?}, joke is on me though, it's not that funny. BUT i did build this entirely from Positron public beta which was a fun experience. I'd say that developing packages is a lot easier in Positron IDE, whereas I still use RStudio IDE for the time being for data analysis, data viz, ml, eda, etc. as it's less prone to crash at the moment. 
+this package is based off the initial parsnip code, kernlab documents, and tidymodels' developer guides. The {maize} package is a corny pun of {parsnip} & {kernels}, aw-shucks! 
 
 ##### cheatsheets on how to register a model
 - https://www.tidymodels.org/learn/develop/models/

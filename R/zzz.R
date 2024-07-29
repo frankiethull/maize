@@ -5,4 +5,6 @@
   make_svm_bessel()
   make_svm_anova_rbf()
   make_svm_spline()
+  make_svm_cossim()
+  make_svm_cauchy()
 }
