@@ -35,7 +35,7 @@ make_svm_laplace <- function() {
     eng = "kernlab",
     parsnip = "laplace_sigma",
     original = "sigma",
-    func = list(pkg = "dials", fun = "laplace_sigma"),
+    func = list(pkg = "dials", fun = "laplace_sigma"), # test2
     has_submodel = FALSE
   )
 
