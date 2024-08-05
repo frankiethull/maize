@@ -125,7 +125,7 @@ corn_test |>
             alpha = .8) + 
   geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
   theme_minimal() +
-  labs(subtitle = "Laplacian Similarity Kernel") +
+  labs(subtitle = "Laplacian Kernel") +
   scale_fill_viridis_d() +
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
@@ -189,7 +189,7 @@ corn_test |>
             alpha = .8) + 
   geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
   theme_minimal() +
-  labs(subtitle = "ANOVA RBF Similarity Kernel") +
+  labs(subtitle = "ANOVA RBF Kernel") +
   scale_fill_viridis_d() +
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
