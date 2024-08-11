@@ -1,26 +1,26 @@
-#' Cauchy Support Vector Machine
-#' @description cauchy kernel for support vector machines
+#' T-Student Support Vector Machine
+#' @description t-student kernel for support vector machines
 #' @param mode regression or classification
 #' @param engine kernlab ksvm
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
-#' @param sigma a sigma parameter for cauchy kernels
+#' @param degree a degree parameter for tstudent kernels
 #' @export
 
-svm_cauchy <-
+svm_tstudent <-
   function(mode = "unknown", engine = "kernlab",
-           cost = NULL, margin = NULL, sigma = NULL) {
+           cost = NULL, margin = NULL, degree = NULL) {
 
     args <- list(
       cost   = enquo(cost),
       margin = enquo(margin),
-      sigma  = enquo(sigma)
+      degree  = enquo(degree)
     )
 
     parsnip::new_model_spec(
-      "svm_cauchy",
+      "svm_tstudent",
       args = args,
       eng_args = NULL,
       mode = mode,
@@ -33,20 +33,20 @@ svm_cauchy <-
 
 # ------------------------------------------------------------------------------
 
-#' @method update svm_cauchy
+#' @method update svm_tstudent
 #' @rdname parsnip_update
 #' @export
-update.svm_cauchy <-
+update.svm_tstudent <-
   function(object,
            parameters = NULL,
-           cost = NULL, margin = NULL, sigma = NULL,
+           cost = NULL, margin = NULL, degree = NULL,
            fresh = FALSE,
            ...) {
 
     args <- list(
       cost   = enquo(cost),
       margin  = enquo(margin),
-      sigma   = enquo(sigma)
+      degree   = enquo(degree)
     )
 
     parsnip::update_spec(
@@ -54,7 +54,7 @@ update.svm_cauchy <-
       parameters = parameters,
       args_enquo_list = args,
       fresh = fresh,
-      cls = "svm_cauchy",
+      cls = "svm_tstudent",
       ...
     )
   }
@@ -62,7 +62,7 @@ update.svm_cauchy <-
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.svm_cauchy <- function(x, engine = x$engine, ...) {
+translate.svm_tstudent <- function(x, engine = x$engine, ...) {
   x <- parsnip::translate.default(x, engine = engine, ...)
 
   # slightly cleaner code using
@@ -89,6 +89,6 @@ translate.svm_cauchy <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.svm_cauchy <- function(object, call = rlang::caller_env()) {
+check_args.svm_tstudent <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }

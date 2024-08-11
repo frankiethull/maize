@@ -7,4 +7,7 @@
   make_svm_spline()
   make_svm_cossim()
   make_svm_cauchy()
+  make_svm_tanimoto()
+  make_svm_sorensen()
+  make_svm_tstudent()
 }
