@@ -196,6 +196,66 @@ corn_test |>
 
 ![](readme_files/figure-commonmark/unnamed-chunk-5-1.png)
 
+``` r
+# model params --
+  svm_cls_spec <- 
+    svm_tanimoto(cost = 1, margin = 0.1) |> 
+    set_mode("classification") |>
+    set_engine("kernlab")
+  
+# fit --
+  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
+
+# predictions --
+preds <- predict(svm_cls_fit, corn_grid, "class")
+pred_grid <- corn_grid |> cbind(preds)
+
+# plot --
+corn_test |>
+  ggplot() +
+  geom_tile(inherit.aes = FALSE,
+            data = pred_grid, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .8) + 
+  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
+  theme_minimal() +
+  labs(subtitle = "Tanimoto Kernel") +
+  scale_fill_viridis_d() +
+  scale_color_manual(values = c("violet", "cyan", "orange"))
+```
+
+![](readme_files/figure-commonmark/unnamed-chunk-6-1.png)
+
+``` r
+# model params --
+  svm_cls_spec <- 
+    svm_tstudent(cost = 1, margin = 0.1, degree = 3) |> 
+    set_mode("classification") |>
+    set_engine("kernlab")
+  
+# fit --
+  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
+
+# predictions --
+preds <- predict(svm_cls_fit, corn_grid, "class")
+pred_grid <- corn_grid |> cbind(preds)
+
+# plot --
+corn_test |>
+  ggplot() +
+  geom_tile(inherit.aes = FALSE,
+            data = pred_grid, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .8) + 
+  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
+  theme_minimal() +
+  labs(subtitle = "T-Student Kernel") +
+  scale_fill_viridis_d() +
+  scale_color_manual(values = c("violet", "cyan", "orange"))
+```
+
+![](readme_files/figure-commonmark/unnamed-chunk-7-1.png)
+
 ## future enhancements
 
 additional kernels are always welcome & added periodically. The more

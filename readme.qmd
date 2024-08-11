@@ -10,7 +10,7 @@ format: gfm
 {maize} is an extension library for support vector machines in tidymodels! The package consists of additional kernel bindings listed in {kernlab} that are not available in the {parsnip} package.   
 
 
-{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} binds five more {kernlab} kernels: laplace, bessel, anova rbf, spline, & hyperbolic tangent. **Additionally, {maize} has a few experimental kernels added in the most recent update: cauchy and cossim. The goal is to add many more kernels compatible with kernlab and parsnip.**    
+{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} binds five more {kernlab} kernels: laplace, bessel, anova rbf, spline, & hyperbolic tangent. **{maize} has additional experimental kernels as well: cauchy, cosine similarity, tanimoto, sorensen, t-student, fourier, and wavelet. Feel free to pull request more novel kernels.**    
 
 ## Example Overview    
 ### corn kernels and svm kernels
