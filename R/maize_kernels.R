@@ -136,7 +136,7 @@ waveletdot <- function(x, y, a = 1, c = 1, h = NULL) {
   #   http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1262479
   #   """
 
-  # creating the default wavelet, but could be changed, what
+  # creating the default wavelet, but could be changed in user args
   if (is.null(h)) {
     h <- function(z) {
       cos(1.75 * z) * exp(-z^2 / 2)

@@ -10,4 +10,6 @@
   make_svm_tanimoto()
   make_svm_sorensen()
   make_svm_tstudent()
+  make_svm_fourier()
+  make_svm_wavelet()
 }
