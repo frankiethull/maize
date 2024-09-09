@@ -11,10 +11,10 @@ tidymodels! The package consists of additional kernel bindings listed in
 
 {parnsip} has three kernels available: linear, radial basis function, &
 polynomial. {maize} binds five more {kernlab} kernels: laplace, bessel,
-anova rbf, spline, & hyperbolic tangent. **{maize} has additional
-experimental kernels as well: cauchy, cosine similarity, tanimoto,
-sorensen, t-student, fourier, and wavelet. Feel free to pull request
-more novel kernels.**
+anova rbf, spline, & hyperbolic tangent. **{maize} binds additional
+experimental kernels too: cauchy, cosine similarity, tanimoto, sorensen,
+t-student, fourier, and wavelet. Feel free to pull request more novel
+kernels.**
 
 ## Example Overview
 
