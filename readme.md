@@ -11,10 +11,10 @@ tidymodels! The package consists of additional kernel bindings listed in
 
 {parnsip} has three kernels available: linear, radial basis function, &
 polynomial. {maize} binds five more {kernlab} kernels: laplace, bessel,
-anova rbf, spline, & hyperbolic tangent. **Additionally, {maize} has a
-few experimental kernels added in the most recent update: cauchy and
-cossim. The goal is to add many more kernels compatible with kernlab and
-parsnip.**
+anova rbf, spline, & hyperbolic tangent. **{maize} has additional
+experimental kernels as well: cauchy, cosine similarity, tanimoto,
+sorensen, t-student, fourier, and wavelet. Feel free to pull request
+more novel kernels.**
 
 ## Example Overview
 
@@ -52,7 +52,7 @@ maize::corn_data |>
     labs(title = 'corn kernel data') 
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-1-1.png)
+![](man/figures/README-unnamed-chunk-1-1.png)
 
 ## Regression
 
@@ -96,7 +96,7 @@ corn_test |>
          subtitle = "corn height prediction") 
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-2-1.png)
+![](man/figures/README-unnamed-chunk-2-1.png)
 
 ## Classification
 
@@ -130,7 +130,7 @@ corn_test |>
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-3-1.png)
+![](man/figures/README-unnamed-chunk-3-1.png)
 
 ``` r
 # model params --
@@ -160,7 +160,7 @@ corn_test |>
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-4-1.png)
+![](man/figures/README-unnamed-chunk-4-1.png)
 
 ``` r
 # model params --
@@ -194,7 +194,7 @@ corn_test |>
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-5-1.png)
+![](man/figures/README-unnamed-chunk-5-1.png)
 
 ``` r
 # model params --
@@ -224,7 +224,7 @@ corn_test |>
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-6-1.png)
+![](man/figures/README-unnamed-chunk-6-1.png)
 
 ``` r
 # model params --
@@ -254,7 +254,7 @@ corn_test |>
   scale_color_manual(values = c("violet", "cyan", "orange"))
 ```
 
-![](readme_files/figure-commonmark/unnamed-chunk-7-1.png)
+![](man/figures/README-unnamed-chunk-7-1.png)
 
 ## future enhancements
 
