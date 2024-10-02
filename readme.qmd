@@ -12,7 +12,7 @@ knitr:
 
 this branch, *popcorn_garland*, is all about *kernel strings*. Testing stringdot from the kernlab package which has a handful of types: (spectrum, boundrange, constant, exponential, string, fullstring).   
 
-Initially skipped string dot as it's a classification kernel for text and requires lists input.    
+Initially skipped string dot as it's a text classification kernel and requires lists input.    
 
 svm_string tests will occur in this branch and PR into main.   
 
