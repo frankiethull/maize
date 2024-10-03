@@ -3,7 +3,7 @@
 #' `step_kha_laplace()` creates a *specification* of a recipe step that will
 #' convert numeric data into one or more principal components using a laplace
 #' kernel basis expansion.
-#'
+#' @inheritParams step_kpca_laplace
 #' @param sigma A numeric value for the laplace function parameter.
 #' @param learn_rate hebbian learning rate
 #' @param threshold the smallest value of the convergence step

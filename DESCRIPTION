@@ -15,8 +15,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     parsnip,
+    recipes,
     rlang,
-    tibble
+    tibble,
+    vctrs
 Depends: 
-    R (>= 2.10)
+    R (>= 4.4.1.0)
 LazyData: true

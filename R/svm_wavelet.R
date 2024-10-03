@@ -6,6 +6,7 @@
 #'  or on the wrong side of the margin
 #' @param margin A positive number for the epsilon in the SVM insensitive
 #'  loss function (regression only)
+#' @param sigma sigma parameter for svm wavelet kernel
 #' @param a scale adjustment parameter for wavelet kernels (temp name)
 #' @param c dist adjustment parameter for wavelet kernels can be NULL (temp name)
 #' @param h wavelet function for wavelet kernel, default wavelet if NULL (temp name)
