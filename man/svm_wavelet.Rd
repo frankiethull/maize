@@ -26,6 +26,8 @@ or on the wrong side of the margin}
 \item{margin}{A positive number for the epsilon in the SVM insensitive
 loss function (regression only)}
 
+\item{sigma}{sigma parameter for svm wavelet kernel}
+
 \item{a}{scale adjustment parameter for wavelet kernels (temp name)}
 
 \item{c}{dist adjustment parameter for wavelet kernels can be NULL (temp name)}
