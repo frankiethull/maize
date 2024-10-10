@@ -21,7 +21,17 @@ before binding, let’s make a quick test:
 ``` r
 library(parsnip)
 library(kernlab)
+library(maize)
+```
 
+
+    Attaching package: 'maize'
+
+    The following object is masked from 'package:parsnip':
+
+        check_args
+
+``` r
 # Create two separate lists for descriptions and labels
 descriptions <- list(
   "Yellow kernels on a cob",
@@ -61,5 +71,71 @@ predict(svm_model, descriptions)
 
 ### test binding:
 
-bind may require additional handlers for input since the dot expects
+bind will require additional handlers for input since the dot expects
 list input instead of formula + dataframe. . .
+
+bound with x + y method, minimal wrapper is called “ksvm_stringdot”..
+this is the underlying fcn now mapped to the svm_string_data set_fit
+call.
+
+``` r
+# make a df input work with the ksvm S4 list method backend
+df <- data.frame(
+  description = unlist(descriptions),
+  label  = labels
+)
+
+
+# spec
+svm_string_spec <- 
+  svm_string(cost = 1, margin = 0.1, length = 4, lambda = 0.5) |> 
+  set_mode("classification") |>
+  set_engine("kernlab")
+
+# fit --
+svm_cls_fit <- svm_string_spec |> fit(label ~ description, data = df)
+
+svm_cls_fit
+```
+
+    parsnip model object
+
+    Support Vector Machine object of class "ksvm" 
+
+    SV type: C-svc  (classification) 
+     parameter : cost C = 1 
+
+    String kernel function.  Type =  spectrum 
+     Hyperparameters : sub-sequence/string length =  4 
+     Normalized 
+
+    Number of Support Vectors : 16 
+
+    Objective Function Value : -7.5065 
+    Training error : 0 
+
+predict check:
+
+``` r
+predict(svm_cls_fit, df, type = "class")
+```
+
+    # A tibble: 16 × 1
+       .pred_class
+       <fct>      
+     1 corn       
+     2 corn       
+     3 corn       
+     4 corn       
+     5 corn       
+     6 corn       
+     7 corn       
+     8 corn       
+     9 not corn   
+    10 not corn   
+    11 not corn   
+    12 not corn   
+    13 not corn   
+    14 not corn   
+    15 not corn   
+    16 not corn   

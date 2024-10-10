@@ -1,14 +1,13 @@
+
 make_svm_string <- function() {
 
   parsnip::set_new_model("svm_string")
 
   parsnip::set_model_mode("svm_string", "classification")
-  #  parsnip::set_model_mode("svm_string", "regression")
 
   # ------------------------------------------------------------------------------
 
   parsnip::set_model_engine("svm_string", "classification", "kernlab")
-  #  parsnip::set_model_engine("svm_string", "regression", "kernlab")
   parsnip::set_dependency("svm_string", "kernlab", "kernlab")
   parsnip::set_dependency("svm_string", "kernlab", "maize")
 
@@ -39,21 +38,22 @@ make_svm_string <- function() {
     has_submodel = FALSE
   )
 
-  parsnip::set_model_arg(
-    model = "svm_string",
-    eng = "kernlab",
-    parsnip = "type",
-    original = "type",
-    func = list(pkg = "dials", fun = "type"),
-    has_submodel = FALSE
-  )
+  # TODO there are a few different stringdot 'types'
+  # consider stringdot(type =...), not the ksvm(type =...)
+  # parsnip::set_model_arg(
+  #   model = "svm_string",
+  #   eng = "kernlab",
+  #   parsnip = "type",
+  #   original = "type",
+  #   has_submodel = FALSE
+  # )
 
   parsnip::set_model_arg(
     model = "svm_string",
     eng = "kernlab",
     parsnip = "normalized",
     original = "normalized",
-    func = list(pkg = "dials", fun = "normalized")
+    func = list(pkg = "dials", fun = "normalized"),
     has_submodel = FALSE
   )
 
@@ -66,41 +66,16 @@ make_svm_string <- function() {
     has_submodel = FALSE
   )
 
-  # parsnip::set_fit(
-  #   model = "svm_string",
-  #   eng = "kernlab",
-  #   mode = "regression",
-  #   value = list(
-  #     interface = "formula",
-  #     data = c(formula = "x", data = "data"),
-  #     protect = c("x", "data"),
-  #     func = c(pkg = "kernlab", fun = "ksvm"),
-  #     defaults = list(kernel = "stringdot")
-  #   )
-  # )
-
-  # parsnip::set_encoding(
-  #   model = "svm_string",
-  #   eng = "kernlab",
-  #   mode = "regression",
-  #   options = list(
-  #     predictor_indicators = "none",
-  #     compute_intercept = FALSE,
-  #     remove_intercept = FALSE,
-  #     allow_sparse_x = FALSE
-  #   )
-  # )
 
   parsnip::set_fit(
     model = "svm_string",
     eng = "kernlab",
     mode = "classification",
     value = list(
-      interface = "formula",
-      data = c(formula = "x", data = "data"),
-      protect = c("x", "data"),
-      func = c(pkg = "kernlab", fun = "ksvm"),
-      defaults = list(kernel = "stringdot")
+      interface = "data.frame",
+      protect = c("x", "y"),
+      func = c(pkg = "maize", fun = "ksvm_stringdot"),
+      defaults = list(shrinking = TRUE, fit = TRUE)
     )
   )
 
@@ -116,38 +91,6 @@ make_svm_string <- function() {
     )
   )
 
-  # parsnip::set_pred(
-  #   model = "svm_string",
-  #   eng = "kernlab",
-  #   mode = "regression",
-  #   type = "numeric",
-  #   value = list(
-  #     pre = NULL,
-  #     post = \(results, object) {
-  #       results[,1]
-  #     },
-  #     func = c(pkg = "kernlab", fun = "predict"),
-  #     args =
-  #       list(
-  #         object = quote(object$fit),
-  #         newdata = quote(new_data),
-  #         type = "response"
-  #       )
-  #   )
-  # )
-
-  # parsnip::set_pred(
-  #   model = "svm_string",
-  #   eng = "kernlab",
-  #   mode = "regression",
-  #   type = "raw",
-  #   value = list(
-  #     pre = NULL,
-  #     post = NULL,
-  #     func = c(pkg = "kernlab", fun = "predict"),
-  #     args = list(object = quote(object$fit), newdata = quote(new_data))
-  #   )
-  # )
 
   parsnip::set_pred(
     model = "svm_string",
@@ -157,12 +100,11 @@ make_svm_string <- function() {
     value = list(
       pre = NULL,
       post = NULL,
-      func = c(pkg = "kernlab", fun = "predict"),
+      func = c(pkg = "maize", fun = "predict_ksvm_stringdot_class"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "response"
+          object = quote(object),
+          new_data = quote(new_data)
         )
     )
   )

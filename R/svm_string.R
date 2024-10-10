@@ -8,19 +8,17 @@
 #'  loss function (regression only)
 #' @param length The length of the substrings considered
 #' @param lambda The decay factor
-#' @param type one of: spectrum, boundrange, constant, exponential, string, fullstring
 #' @param normalized normalize string kernel values, (default = TRUE)
 #' @export
 
 svm_string <-
-  function(mode = "unknown", engine = "kernlab",
-           cost = NULL, length = NULL, lambda = NULL, type = NULL, normalized = TRUE, margin = NULL) {
+  function(x, y, mode = "unknown", engine = "kernlab",
+           cost = NULL, length = NULL, lambda = NULL, normalized = TRUE, margin = NULL) {
 
     args <- list(
       cost        = enquo(cost),
       length      = enquo(length),
       lambda      = enquo(lambda),
-      type        = enquo(type),
       normalized  = enquo(normalized),
       margin      = enquo(margin)
     )
@@ -45,7 +43,7 @@ svm_string <-
 update.svm_string <-
   function(object,
            parameters = NULL,
-           cost = NULL, length = NULL, lambda = NULL, type = NULL, normalized = TRUE, margin = NULL,
+           cost = NULL, length = NULL, lambda = NULL, normalized = TRUE, margin = NULL,
            fresh = FALSE,
            ...) {
 
@@ -53,7 +51,6 @@ update.svm_string <-
       cost        = enquo(cost),
       length      = enquo(length),
       lambda      = enquo(lambda),
-      type        = enquo(type),
       normalized  = enquo(normalized),
       margin      = enquo(margin)
     )
@@ -98,10 +95,6 @@ translate.svm_string <- function(x, engine = x$engine, ...) {
         kpar$lambda <- arg_vals$lambda
         arg_vals$lambda <- NULL
       }
-      if (any(arg_names == "type")) {
-        kpar$type <- arg_vals$type
-        arg_vals$type <- NULL
-      }
       if (any(arg_names == "normalized")) {
         kpar$normalized <- arg_vals$normalized
         arg_vals$normalized <- NULL
@@ -126,3 +119,65 @@ translate.svm_string <- function(x, engine = x$engine, ...) {
 check_args.svm_string <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# stringdot helpers --------------------------------------------------------------
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# ksvm S4 method requires lists for ksvm(kernel = "stringdot")
+# below is a simple wrapper for svm_string fitting
+# note that in func, in svm_string_data, ksvm is replaced with ksvm_stringdot
+
+#' @keywords internal
+#' @param x A data frame or matrix of predictors
+#' @param y A vector of outcome data class
+#' @export
+#' @rdname stringdot_helpers
+ksvm_stringdot <- \(x, y, length = 4, lambda = 0.5, C = 1, ...){
+
+  if (is.data.frame(x)) {
+    # this worked, should concatenate all pred cols
+    x <- x[,1]
+  }
+  x_ls <- as.list(x)
+  y_ls <- as.factor(y)
+
+
+  # compacted <- rlang::list2(
+  #   x = x_ls,
+  #   y = y_ls,
+  #   kernel = "stringdot",
+  #   kpar = list(length = length, lambda = lambda),
+  #   C = C,
+  #   ...
+  # )
+  #
+  #
+  # call <- rlang::call2("ksvm", !!!compacted, .ns = "kernlab")
+  # res  <- rlang::eval_tidy(call, env = rlang::current_env())
+  #
+  # res
+
+  model <- kernlab::ksvm(x_ls, y_ls,
+                         kernel = "stringdot",
+                         kpar = list(length = length, lambda = lambda),
+                         C = C)
+
+  return(model)
+}
+
+# additional helpers for preds ~~~~~~~~~~~~~~~
+
+#' @keywords internal
+#' @export
+#' @rdname stringdot_helpers
+predict_ksvm_stringdot_class <- function(object, new_data, ...) {
+
+  if (is.data.frame(new_data)) {
+    new_data <- new_data[,1]
+  }
+     x_ls <- as.list(new_data)
+
+      kernlab::predict(object$fit, x_ls, type = "response")
+}
+
