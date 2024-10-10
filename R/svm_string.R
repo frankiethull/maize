@@ -181,3 +181,15 @@ predict_ksvm_stringdot_class <- function(object, new_data, ...) {
       kernlab::predict(object$fit, x_ls, type = "response")
 }
 
+#' @keywords internal
+#' @export
+#' @rdname stringdot_helpers
+predict_ksvm_stringdot_prob <- function(object, new_data, ...) {
+
+  if (is.data.frame(new_data)) {
+    new_data <- new_data[,1]
+  }
+  x_ls <- as.list(new_data)
+
+  kernlab::predict(object$fit, x_ls, type = "probabilities")
+}

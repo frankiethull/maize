@@ -117,12 +117,11 @@ make_svm_string <- function() {
     value = list(
       pre = NULL,
       post = function(result, object) as_tibble(result),
-      func = c(pkg = "kernlab", fun = "predict"),
+      func = c(pkg = "maize", fun = "predict_ksvm_stringdot_prob"),
       args =
         list(
-          object = quote(object$fit),
-          newdata = quote(new_data),
-          type = "probabilities"
+          object = quote(object),
+          new_data = quote(new_data)
         )
     )
   )
@@ -135,8 +134,8 @@ make_svm_string <- function() {
     value = list(
       pre = NULL,
       post = NULL,
-      func = c(pkg = "kernlab", fun = "predict"),
-      args = list(object = quote(object$fit), newdata = quote(new_data))
+      func = c(pkg = "maize", fun = "predict_ksvm_stringdot_class"),
+      args = list(object = quote(object), new_data = quote(new_data))
     )
   )
 }
