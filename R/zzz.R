@@ -12,4 +12,5 @@
   make_svm_tstudent()
   make_svm_fourier()
   make_svm_wavelet()
+  make_svm_string()
 }
