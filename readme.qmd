@@ -10,11 +10,78 @@ knitr:
     
 ## what is {maize}?
    
-{maize} is an extension library for support vector machines in tidymodels! The package consists of additional kernel bindings listed in {kernlab} that are not available in the {parsnip} package.   
+{maize} is an extension library for kernels & support vector machines in tidymodels! The package consists of additional kernel bindings that are not available in the {parsnip} or {recipes} package. Many of the kernels are ported from {kernlab}, additional kernels have been added directly to maize transposed from [Python](https://github.com/gmum/pykernels/blob/master/pykernels/regular.py) and [Julia](https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/) packages. 
 
 
-{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} binds five more {kernlab} kernels: laplace, bessel, anova rbf, spline, & hyperbolic tangent. **{maize} binds additional experimental kernels too: cauchy, cosine similarity, tanimoto, sorensen, t-student, fourier, and wavelet. Feel free to pull request more novel kernels.**
+{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} extends to further kernels, other engines, and adds steps for {recipes}: 
 
+### maize engines 
+```{r}
+#| echo: false
+
+# parsnip bindings --
+maize_models <- data.frame(
+  extension   = "{parsnip}",
+  maize   = c("svm_laplace", "svm_tanh", "svm_bessel", "svm_anova_rbf", 
+              "svm_spline","svm_cossim", "svm_cauchy", "svm_tanimoto",
+              "svm_sorenson", "svm_tstudent", "svm_fourier", "svm_wavelet",
+              "svm_string"),
+  engine  = rep("kernlab::ksvm", 13),
+  mode    = c(rep("regression & classification", 12), "classification")
+  
+)
+
+# recipes bindings --
+maize_recipes <- data.frame(
+  extension = "{recipes}",
+  maize  = c("step_kpca_laplace", "step_kpca_tanh", 
+             "step_kha_laplace", "step_kha_tanh"),
+  engine = c(rep("kernlab::kpca", 2),
+             rep("kernlab::kha", 2)),
+  mode = "transformation steps"
+)
+
+# gtUtils fun ---
+library(BobRossColors)
+bars <- BobRossColors::all_palettes |> 
+          dplyr::filter(painting_title == "wilderness_trail") |>
+          dplyr::pull(divergent)
+
+# ~ maize gr8 tbl wilderness trail ~ --
+maize_models |>
+  rbind(maize_recipes) |>
+  gt::gt() |>
+  gt::tab_header(title = "{maize} bindings",
+                 subtitle = "more to come!") |>
+  # theming the tbl
+  gtUtils::gt_theme_ncaa() |>
+  gtUtils::gt_border_bars_top(bars[1:5]) |>
+  gtUtils::gt_border_bars_bottom(bars[6:10]) |>
+  # colored/bolded cells:
+  gt::tab_style(
+    style = list(
+      gt::cell_fill(color = bars[4]),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = extension,
+      rows = extension == "{parsnip}"
+    )
+  ) |>
+  gt::tab_style(
+    style = list(
+      gt::cell_fill(color = bars[8]),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = extension,
+      rows = extension == "{recipes}"
+    )
+  ) |>
+  #gt::as_raw_html()
+  gt::gtsave("man/figures/gtmaize.png")
+```
+<img src="man/figures/gtmaize.png" align="center" alt="" />
 
 ## Example Overview    
 ### corn kernels and svm kernels
