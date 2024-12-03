@@ -22,3 +22,7 @@ Imports:
 Depends: 
     R (>= 4.4.1.0)
 LazyData: true
+Suggests: 
+    knitr,
+    quarto
+VignetteBuilder: quarto

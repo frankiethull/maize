@@ -1,0 +1,241 @@
+---
+title: "two-class-post-processing"
+vignette: >
+  %\VignetteIndexEntry{two-class-post-processing}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+library(parsnip)
+library(maize)
+
+library(probably)
+library(tailor)
+
+library(ggplot2)
+```
+
+
+The following example showcases the use of {maize} with post-processing libraries within the {tidymodels} ecosystem.   
+   
+A quote from a fellow R programmer:
+
+"
+curious about how the concept of {probably} plays into a (binary) classification scenario! I'd love to dive into an example case to see how it all comes together (detection, calibration, thresholding).
+Can we exemplify this via {maize}?
+"
+
+We have three goals here: 
+1) create an maize engine that showcases detection, calibration, and thresholding
+2) start with an example of {probably} and then {tailor}
+3) improve {maize} documentation!
+
+### two types of corn kernels we need to classify:
+we're filter down from three to two types of corn.
+```{r}
+# binary classification problem data:
+two_class_df <- maize::corn_data |> 
+                dplyr::filter(type %in% c('Popcorn', 'Field')) |>
+                droplevels()
+
+
+# --------------cornfield-------------------------
+kernel_min <- two_class_df$kernel_size |> min()
+kernel_max <- two_class_df$kernel_size |> max()
+kernel_vec <- seq(kernel_min, kernel_max, by = 1)
+height_min <- two_class_df$height |> min()
+height_max <- two_class_df$height |> max() 
+height_vec <- seq(height_min, height_max, by = 1)
+cornfield <- expand.grid(kernel_size = kernel_vec, height = height_vec)
+# -----------------------------------------------
+
+```
+
+### create a three-way split using rsample:
+three-way splits are useful for post-processing calibrations. we have a training set, a validation set for calibration, and then a final test set for checking the post-processing steps. 
+```{r}
+set.seed(42)
+data_split <- rsample::initial_validation_split(two_class_df)
+
+train <- rsample::training(data_split)
+test  <- rsample::testing(data_split)
+valid <- rsample::validation(data_split)
+
+train |>
+  ggplot() +
+  geom_point(aes(x = kernel_size, y = height, color = type, shape = type)) +
+  theme_minimal() +
+  labs(subtitle = "training data")
+```
+
+### train a classification svm using workflows:
+we could fit a model, but using a workflow gives us more flexibility downstream. 
+```{r}
+# model params --
+svm_cls_spec <- 
+  svm_sorensen(cost = 1, margin = 0.1) |> 
+  set_mode("classification") |>
+  set_engine("kernlab")
+  
+# fit --
+# simply fit a model
+#  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = train)
+
+# fit with a workflow --
+# workflows allow for bundled pre- and post- processing
+svm_wkflow <- 
+  workflows::workflow() |>
+  workflows::add_model(svm_cls_spec) |>
+  workflows::add_formula(type ~ .)
+
+svm_cls_fit <- fit(svm_wkflow, train)
+```
+
+## {probably}
+  
+detection, thresholding, and calibration steps.   
+    
+### detecting class with {maize} and [EQ] thresholding via probably
+
+let's see what the confusion matrix looks like given our trained model. 
+```{r}
+initial_class_preds_test <- predict(svm_cls_fit, test)
+
+test |>
+  dplyr::bind_cols(initial_class_preds_test) |>
+  yardstick::conf_mat(type, .pred_class)
+```
+There's probably (no pun intended) an edge of overlapping observations. We could try to tune our parameters for a perfect confusion matrix. We could try calibrating our trained model. Or in some cases we cannot handle this edge, as it's too uncertain to predict accurately, i.e. an equivocal zone. 
+
+classification field vs test observations:
+```{r}
+preds <- predict(svm_cls_fit, cornfield, "class")
+predfield <- cornfield |> cbind(preds)
+
+test |>
+  dplyr::bind_cols(
+    initial_class_preds_test
+  ) |>
+  dplyr::mutate(
+    hit_or_miss = type == .pred_class
+  ) |>
+  ggplot() +
+  # plotting the classification field:
+    geom_tile(inherit.aes = FALSE,
+            data = predfield, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .4) + 
+  geom_point(aes(x = kernel_size, y = height, color = hit_or_miss, shape = type)) +
+  theme_minimal() +
+  labs(subtitle = "fitted model detection vs test data")
+
+```
+detection with equivocal zones via probably:
+```{r}
+# predict the probability output instead of class:
+initial_class_preds_prob_test <- predict(svm_cls_fit, test, type = "prob")
+
+# probabilities and outcome:
+initial_class_preds_prob_test <- initial_class_preds_prob_test |>
+                                  dplyr::bind_cols(test |> dplyr::select(type))
+
+# probably EQ step:
+class_preds_prob_eq <- initial_class_preds_prob_test |>
+  dplyr::mutate(
+    .pred_class = probably::make_two_class_pred(
+      estimate = .pred_Field,
+      levels = levels(type),
+      # adjust threshold and buffer to handle eq 
+      threshold = 0.5,
+      buffer = 0.35
+    )
+  )
+
+class_preds_prob_eq |> 
+  dplyr::count(.pred_class)
+```
+check EQs:
+```{r}
+test |>
+  dplyr::bind_cols(
+    class_preds_prob_eq |> dplyr::select(.pred_class)
+  ) |>
+  dplyr::mutate(
+    .pred_class = as.factor(.pred_class),
+    hit_or_miss = type == .pred_class
+  ) |>
+  ggplot() +
+  # plotting the classification field:
+    geom_tile(inherit.aes = FALSE,
+            data = predfield, 
+            aes(x = kernel_size, y = height, fill = .pred_class),
+            alpha = .4) + 
+  geom_point(aes(x = kernel_size, y = height, color = hit_or_miss, shape = type)) +
+  theme_minimal() +
+  labs(subtitle = "fitted model detection vs test data with thresholding",
+       caption = "[EQ] appear as NAs")
+```
+
+### calibration with probably 
+
+note there are a few calibration functions for regression and classification in {probably}. We're honing in on a calibration for classification and will demonstrate `cal_estimate_logistic`. Since we are doing calibration, we run this calibration step on validation data, then this validation step will be used to calibrate our predictions on test. 
+
+```{r}
+# predict the probability output instead of class:
+initial_class_preds_prob_val <- predict(svm_cls_fit, valid, type = "prob")
+
+# probabilities and outcome:
+initial_class_preds_prob_val <- initial_class_preds_prob_val |>
+                                  dplyr::bind_cols(valid |> dplyr::select(type))
+
+svm_cls_fit_calibrated <- initial_class_preds_prob_val |>
+                          probably::cal_estimate_logistic(truth = "type")
+
+# svm_cls_fit_calibrated
+calibrated_preds_on_test <- probably::cal_apply(
+                            initial_class_preds_prob_test,
+                            svm_cls_fit_calibrated,
+                            pred_class = ".pred_class"
+                            )
+
+# confusion matrix with calibration
+calibrated_preds_on_test |> 
+  yardstick::conf_mat(type, .pred_class)
+```
+
+## {tailor}
+
+experimental post-processing API layer to {probably}. Making post-processing easy! 
+
+if {parsnip} is the helper for engines, {recipes} are for pre-processing, tailor is a new package for post-processing. Note that the development version of workflows has workflows::add_tailor() to automate more of the process. It looks like these post process steps are being registered at tunable parameters too!
+
+```{r}
+library(tailor)
+
+post_process <- tailor() |>
+                adjust_probability_calibration(method = "logistic") |>
+                adjust_probability_threshold(threshold = 0.5) |>
+                adjust_equivocal_zone(value = 0.35)
+
+tailored_wkflow <-                
+svm_wkflow |>
+  # add tailor adjustments to our initial workflow 
+  workflows::add_tailor(
+    post_process
+  )
+
+svm_cls_fit_tailor <- fit(tailored_wkflow, train, calibration = valid)
+
+# with threshold and EQ buffer and logistic calibration
+svm_cls_fit_tailor |> 
+  predict(test) |>
+  dplyr::bind_cols(test) |>
+  yardstick::conf_mat(type, .pred_class)
+```
+

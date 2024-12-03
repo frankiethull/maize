@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^vignettes/\.quarto$
+^vignettes/*_files$
+^doc$
+^Meta$
