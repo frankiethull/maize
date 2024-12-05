@@ -12,6 +12,10 @@ knitr:
 
 ```{r}
 #| label: setup
+# inst dev versions for tailor and add_tailor
+devtools::install_github("tidymodels/workflows")
+devtools::install_github("tidymodels/tailor")
+
 library(parsnip)
 library(maize)
 
