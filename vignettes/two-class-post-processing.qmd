@@ -1,4 +1,4 @@
----
+3---
 title: "two-class-post-processing"
 vignette: >
   %\VignetteIndexEntry{two-class-post-processing}
@@ -13,6 +13,7 @@ knitr:
 ```{r}
 #| label: setup
 # inst dev versions for tailor and add_tailor
+install.packages("devtools")
 devtools::install_github("tidymodels/workflows")
 devtools::install_github("tidymodels/tailor")
 
