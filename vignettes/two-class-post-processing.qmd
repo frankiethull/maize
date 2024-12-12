@@ -13,7 +13,8 @@ knitr:
 ```{r}
 #| label: setup
 # inst dev versions for tailor and add_tailor
-install.packages("devtools", repos = "https://cloud.r-project.org")
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("devtools")
 devtools::install_github("tidymodels/workflows")
 devtools::install_github("tidymodels/tailor")
 
