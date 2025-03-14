@@ -29,7 +29,7 @@ The \code{predict()} method is used to produce the intervals.
 }
 \description{
 To compute quantiles, this function uses Quantile
-SVM instead of {probably}'s QRF or classic quantile regression.
+SVM instead of probably's \code{"int_conformal_quantile"} QRF or classic quantile regression.
 }
 \details{
 based on the initial probably implementation with slight modification.
