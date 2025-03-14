@@ -24,5 +24,6 @@ Depends:
 LazyData: true
 Suggests: 
     knitr,
-    quarto
-VignetteBuilder: quarto
+    quarto,
+    rmarkdown
+VignetteBuilder: quarto, knitr
