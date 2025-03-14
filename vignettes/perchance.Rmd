@@ -1,0 +1,70 @@
+---
+title: "perchance"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{perchance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+### Post-Processing in {maize}???
+
+**based entirely on the {probably} package implementation and conformal inference scripts. **
+
+{probably} contains a int_conformal_quantile method for prediction intervals. The underlying method in this package uses a random forest quantile regression. Within {maize}, int_conformal_quantile_svm has been added. There was a simple swap for a quantile regression method with SVMs. (This method uses {qrsvm} which is not on CRAN.)
+
+```{r}
+library(dplyr)
+library(parsnip)
+library(maize)
+library(recipes)
+library(workflows)
+library(kernlab)
+library(probably)
+# devtools::install_github("frankiethull/qrsvm")
+# library(qrsvm)
+```
+
+
+```{r}
+
+set.seed(31415)
+
+  # note: qrsvm does not work for non-numeric values
+corn_df <- corn_data |> mutate(type = as.numeric(factor(type, levels = levels(type))))
+
+corn_train <- corn_df |> dplyr::sample_frac(.80)
+corn_cal   <- corn_df |> dplyr::anti_join(corn_train) |> head(30)
+corn_test  <- corn_df |> dplyr::anti_join(corn_train) |> tail(30)
+
+
+# SVM base model 
+svm_spec <-
+  svm_laplace() |>
+  set_mode("regression")
+
+svm_wflow <-
+  workflow() |>
+  add_model(svm_spec) |>
+  add_formula(height ~ .)
+
+svm_fit <- fit(svm_wflow, data = corn_train)
+
+# experimental QRSVM interface for CQR: 
+svm_int <- int_conformal_quantile_svm(svm_fit, corn_train, corn_cal,
+  level = 0.80
+)
+
+svm_int
+
+predict(svm_int, corn_test)
+```
+
