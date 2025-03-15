@@ -19,13 +19,14 @@ knitr::opts_chunk$set(
 
 **based entirely on the {probably} package implementation and conformal inference scripts. **
 
-{probably} contains a int_conformal_quantile method for prediction intervals. The underlying method in this package uses a random forest quantile regression. Within {maize}, int_conformal_quantile_svm has been added. There was a simple swap for a quantile regression method with SVMs. (This method uses {qrsvm} which is not on CRAN.)
+{probably} contains a int_conformal_quantile method for prediction intervals. The underlying method in probably uses a random forest quantile regression. Within {maize}, int_conformal_quantile_svm has been added. There was a simple swap for a quantile regression method with SVMs. (This method uses {qrsvm} which is not on CRAN.)
 
 ```{r}
-
+# for r-universe build
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 install.packages("devtools")
+install.packages("ggplot2")
 devtools::install_github("frankiethull/qrsvm")
 library(qrsvm)
 
@@ -39,7 +40,7 @@ library(probably)
 
 ```
 
-
+### point and interval regressions
 ```{r}
 
 set.seed(31415)
@@ -64,6 +65,12 @@ svm_wflow <-
 
 svm_fit <- fit(svm_wflow, data = corn_train)
 
+
+# probably's implementation:
+rf_int <- probably::int_conformal_quantile(svm_fit, corn_train, corn_cal,
+  level = 0.80
+)
+
 # experimental QRSVM interface for CQR: 
 svm_int <- int_conformal_quantile_svm(svm_fit, corn_train, corn_cal,
   level = 0.80
@@ -71,6 +78,36 @@ svm_int <- int_conformal_quantile_svm(svm_fit, corn_train, corn_cal,
 
 svm_int
 
-predict(svm_int, corn_test)
+```
+
+### predict with intervals
+```{r}
+cqr_rf  <- predict(rf_int,  corn_test)
+cqr_svm <- predict(svm_int, corn_test)
+
+
+# renaming pre-plotting
+names(cqr_rf)  <- c(".pred", ".pred_lo_rf",  ".pred_hi_rf")
+names(cqr_svm) <- c(".pred", ".pred_lo_svm", ".pred_hi_svm")
+```
+
+### check conformal quantile prediction intervals
+
+```{r}
+library(ggplot2)
+
+corn_test |>
+  dplyr::bind_cols(cqr_svm) |>
+  dplyr::bind_cols(cqr_rf |> dplyr::select(-.pred)) |>
+  ggplot() +
+  geom_ribbon(aes(x = kernel_size, ymin = .pred_lo_svm, ymax = .pred_hi_svm), 
+              fill = "midnightblue", alpha = .5) +
+  geom_ribbon(aes(x = kernel_size, ymin = .pred_lo_rf,  ymax = .pred_hi_rf), 
+              fill = "orange", alpha = .5) +
+  geom_point(aes(x = kernel_size, y = height, color = "truth")) +
+  geom_point(aes(x = kernel_size, y = .pred,  color = "pred")) + 
+  theme_minimal() +
+  labs(subtitle = "Corn Height Prediction Intervals")
+  
 ```
 
