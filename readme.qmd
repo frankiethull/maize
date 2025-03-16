@@ -28,7 +28,6 @@ maize_models <- data.frame(
               "svm_string"),
   engine  = rep("kernlab::ksvm", 13),
   mode    = c(rep("regression & classification", 12), "classification")
-  
 )
 
 # recipes bindings --
@@ -38,7 +37,15 @@ maize_recipes <- data.frame(
              "step_kha_laplace", "step_kha_tanh"),
   engine = c(rep("kernlab::kpca", 2),
              rep("kernlab::kha", 2)),
-  mode = "transformation steps"
+  mode   = "transformation steps"
+)
+
+# probably bindings --
+maize_probably <- data.frame(
+  extension = "{probably}",
+  maize   = c("int_conformal_quantile_svm"),
+  engine  = c("qrsvm::qrsvm"),
+  mode    = "prediction intervals"
 )
 
 # gtUtils fun ---
@@ -48,38 +55,48 @@ bars <- BobRossColors::all_palettes |>
           dplyr::pull(divergent)
 
 # ~ maize gr8 tbl wilderness trail ~ --
-maize_models |>
-  rbind(maize_recipes) |>
-  gt::gt() |>
-  gt::tab_header(title = "{maize} bindings",
-                 subtitle = "more to come!") |>
-  # theming the tbl
-  gtUtils::gt_theme_ncaa() |>
-  gtUtils::gt_border_bars_top(bars[1:5]) |>
-  gtUtils::gt_border_bars_bottom(bars[6:10]) |>
-  # colored/bolded cells:
-  gt::tab_style(
-    style = list(
-      gt::cell_fill(color = bars[4]),
-      gt::cell_text(weight = "bold")
-      ),
-    locations = gt::cells_body(
-      columns = extension,
-      rows = extension == "{parsnip}"
-    )
-  ) |>
-  gt::tab_style(
-    style = list(
-      gt::cell_fill(color = bars[8]),
-      gt::cell_text(weight = "bold")
-      ),
-    locations = gt::cells_body(
-      columns = extension,
-      rows = extension == "{recipes}"
-    )
-  ) |>
-  #gt::as_raw_html()
-  gt::gtsave("man/figures/gtmaize.png")
+# maize_models |>
+#   rbind(maize_recipes) |>
+#   rbind(maize_probably) |>
+#   gt::gt() |>
+#   gt::tab_header(title = "{maize} bindings",
+#                  subtitle = "more to come!") |>
+#   # theming the tbl
+#   gtUtils::gt_theme_ncaa() |>
+#   gtUtils::gt_border_bars_top(bars[1:5]) |>
+#   gtUtils::gt_border_bars_bottom(bars[6:10]) |>
+#   # colored/bolded cells:
+#   gt::tab_style(
+#     style = list(
+#       gt::cell_fill(color = bars[4]),
+#       gt::cell_text(weight = "bold")
+#       ),
+#     locations = gt::cells_body(
+#       columns = extension,
+#       rows = extension == "{parsnip}"
+#     )
+#   ) |>
+#   gt::tab_style(
+#     style = list(
+#       gt::cell_fill(color = bars[6]),
+#       gt::cell_text(weight = "bold")
+#       ),
+#     locations = gt::cells_body(
+#       columns = extension,
+#       rows = extension == "{recipes}"
+#     )
+#   ) |>
+#     gt::tab_style(
+#     style = list(
+#       gt::cell_fill(color = bars[8]),
+#       gt::cell_text(weight = "bold")
+#       ),
+#     locations = gt::cells_body(
+#       columns = extension,
+#       rows = extension == "{probably}"
+#     )
+#   ) |>
+#   gt::gtsave("/man/figures/gtmaize.png")
 ```
 <img src="man/figures/gtmaize.png" align="center" alt="" />
 
