@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 # for r-universe build
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
-install.packages(c("ggplot2", "devtools"))
+install.packages("devtools")
 devtools::install_github("frankiethull/qrsvm")
 library(qrsvm)
 
