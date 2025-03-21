@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
 # for r-universe build
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
-install.packages("devtools")
-devtools::install_github("frankiethull/qrsvm")
+install.packages("pak")
+pak::pak("frankiethull/qrsvm")
 library(qrsvm)
 
 library(dplyr)
@@ -72,7 +72,7 @@ rf_int <- probably::int_conformal_quantile(svm_fit, corn_train, corn_cal,
 
 # experimental QRSVM interface for CQR: 
 svm_int <- int_conformal_quantile_svm(svm_fit, corn_train, corn_cal,
-  level = 0.80
+  level = 0.80, cost = 1000, degree = 5
 )
 
 svm_int
@@ -92,7 +92,9 @@ names(cqr_svm) <- c(".pred", ".pred_lo_svm", ".pred_hi_svm")
 
 ### check conformal quantile prediction intervals
 
-```{r}
+## SVM with QRF & QRSVM Prediction Intervals
+
+```{r, eval=FALSE}
 library(ggplot2)
 
 corn_test |>
@@ -108,5 +110,27 @@ corn_test |>
   theme_minimal() +
   labs(subtitle = "Corn Height Prediction Intervals")
   
+```
+
+## SVM with Linear & SVM Calibration 
+
+
+```{r}
+calibration_df <-  predict(svm_fit, corn_cal) |> cbind(corn_cal)
+
+
+# probably's implementation:
+lin_cal <- calibration_df |>
+            probably::cal_estimate_linear(height, smooth = TRUE)
+
+# experimental svm calibration (vanilladot or polydot)
+svm_cal <- calibration_df |>
+            maize::cal_estimate_svm(height, smooth = TRUE)
+
+
+predict(svm_fit, corn_test) |>
+  cbind(corn_test) |> 
+  probably::cal_apply(svm_cal)
+
 ```
 
