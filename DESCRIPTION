@@ -1,6 +1,6 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.0.904
+Version: 0.0.0.905
 Authors@R: c(
     person("Frankie T.", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     parsnip,
+    probably,
     recipes,
     rlang,
     tibble,

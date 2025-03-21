@@ -115,7 +115,7 @@ corn_test |>
 ## SVM with Linear & SVM Calibration 
 
 
-```{r}
+```{r, eval=FALSE}
 calibration_df <-  predict(svm_fit, corn_cal) |> cbind(corn_cal)
 
 
