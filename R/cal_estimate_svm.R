@@ -433,13 +433,15 @@ cal_class_name.rset <- function(x) {
 ################################################################################
 # -------------------------- svm cal-apply methods -----------------------------
 
+#' @export
 cal_apply_regression <- function(object, .data, pred_class) {
   UseMethod("cal_apply_regression")
 }
 
+#cal_apply_regression <- probably:::cal_apply_regression
+
 #' @export
-cal_apply_regression.cal_estimate_svm_linear <-
-  function(object, .data, pred_class = NULL, ...) {
+cal_apply_regression.cal_estimate_svm_linear <- function(object, .data, pred_class = NULL, ...) {
     maize:::apply_reg_predict(
       object = object,
       .data = .data

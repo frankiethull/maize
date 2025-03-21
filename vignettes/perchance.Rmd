@@ -120,17 +120,20 @@ calibration_df <-  predict(svm_fit, corn_cal) |> cbind(corn_cal)
 
 
 # probably's implementation:
-lin_cal <- calibration_df |>
+lin_cal_fit <- calibration_df |>
             probably::cal_estimate_linear(height, smooth = TRUE)
 
 # experimental svm calibration (vanilladot or polydot)
-svm_cal <- calibration_df |>
+svm_cal_fit <- calibration_df |>
             maize::cal_estimate_svm(height, smooth = TRUE)
 
-
+# preds
+cal_corn_test <- 
 predict(svm_fit, corn_test) |>
-  cbind(corn_test) |> 
-  probably::cal_apply(svm_cal)
+  cbind(corn_test)
+  
+# calibrated preds:
+  maize::cal_apply_regression(svm_cal_fit, cal_corn_test)
 
 ```
 
