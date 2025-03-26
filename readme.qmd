@@ -43,9 +43,9 @@ maize_recipes <- data.frame(
 # probably bindings --
 maize_probably <- data.frame(
   extension = "{probably}",
-  maize   = c("int_conformal_quantile_svm"),
-  engine  = c("qrsvm::qrsvm"),
-  mode    = "prediction intervals"
+  maize   = c("int_conformal_quantile_svm", "cal_estimate_svm"),
+  engine  = c("qrsvm::qrsvm", "kernlab::ksvm"),
+  mode    = c("prediction intervals", "calibrator")
 )
 
 # gtUtils fun ---
