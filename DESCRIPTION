@@ -1,6 +1,6 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.0.905
+Version: 0.0.0.906
 Authors@R: c(
     person("Frankie T.", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
@@ -20,11 +20,17 @@ Imports:
     rlang,
     tibble,
     vctrs
+Remotes: 
+    frankiethull/qrsvm
 Depends: 
     R (>= 4.4.1.0)
 LazyData: true
 Suggests: 
     knitr,
     quarto,
-    rmarkdown
+    rmarkdown,
+    qrsvm,
+    workflows,
+    kernlab,
+    ggplot2
 VignetteBuilder: quarto, knitr

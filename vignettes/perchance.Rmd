@@ -22,13 +22,7 @@ knitr::opts_chunk$set(
 {probably} contains a int_conformal_quantile method for prediction intervals. The underlying method in probably uses a random forest quantile regression. Within {maize}, int_conformal_quantile_svm has been added. There was a simple swap for a quantile regression method with SVMs. (This method uses {qrsvm} which is not on CRAN.)
 
 ```{r}
-# for r-universe build
-options(repos = c(CRAN = "https://cloud.r-project.org"))
-
-install.packages("pak")
-pak::pak("frankiethull/qrsvm")
 library(qrsvm)
-
 library(dplyr)
 library(parsnip)
 library(maize)
@@ -36,7 +30,6 @@ library(recipes)
 library(workflows)
 library(kernlab)
 library(probably)
-
 ```
 
 ### point and interval regressions
@@ -133,7 +126,7 @@ predict(svm_fit, corn_test) |>
   cbind(corn_test)
   
 # calibrated preds:
-  maize::cal_apply_regression(svm_cal_fit, cal_corn_test)
+maize::cal_apply_regression(svm_cal_fit, cal_corn_test)
 
 ```
 
