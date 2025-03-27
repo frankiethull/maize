@@ -30,6 +30,7 @@ Suggests:
     quarto,
     rmarkdown,
     qrsvm,
+    quantregForest,
     workflows,
     kernlab,
     ggplot2
