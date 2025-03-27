@@ -87,7 +87,7 @@ names(cqr_svm) <- c(".pred", ".pred_lo_svm", ".pred_hi_svm")
 
 ## SVM with QRF & QRSVM Prediction Intervals
 
-```{r, eval=FALSE}
+```{r}
 library(ggplot2)
 
 corn_test |>
@@ -108,7 +108,7 @@ corn_test |>
 ## SVM with Linear & SVM Calibration 
 
 
-```{r, eval=FALSE}
+```{r}
 calibration_df <-  predict(svm_fit, corn_cal) |> cbind(corn_cal)
 
 
