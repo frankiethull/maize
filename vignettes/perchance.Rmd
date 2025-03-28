@@ -17,11 +17,26 @@ knitr::opts_chunk$set(
 
 ### Post-Processing in {maize}???
 
-**based entirely on the {probably} package implementation and conformal inference scripts. **
+**based entirely on the {probably} package implementation for conformal inference & calibration. Hence the pun perchance? **
 
-{probably} contains a int_conformal_quantile method for prediction intervals. The underlying method in probably uses a random forest quantile regression. Within {maize}, int_conformal_quantile_svm has been added. There was a simple swap for a quantile regression method with SVMs. (This method uses {qrsvm} which is not on CRAN.)
+The {probably} package implements the int_conformal_quantile method for generating prediction intervals. This method utilizes random forest quantile regression as its underlying algorithm. In the {maize} package, a new method called int_conformal_quantile_svm has been introduced. This implementation replaces the original quantile regression random forest {quantregForest} approach with a quantile regression SVM {qrsvm}. It's worth noting that the int_conformal_quantile_svm method relies on the {qrsvm} package, which is currently not available on CRAN.
 
-```{r}
+#### Key Components
+{probably} Package    
+Method: int_conformal_quantile   
+Algorithm: `quantregForest::quantregForest()`   
+     
+{maize} Package       
+Method: int_conformal_quantile_svm      
+Algorithm: `qrsvm::qrsvm()`     
+
+#### Implementation Details
+The int_conformal_quantile_svm method in {maize} represents a straightforward substitution of the RF algorithm. Instead of using random forests, it employs SVMs for generating prediction intervals. This modification allows users to leverage the potential benefits of SVMs in certain prediction scenarios.
+
+#### Dependency Note
+The {qrsvm} package, which is required for the SVM-based implementation in {maize}, is not currently hosted on CRAN. Users interested in utilizing the int_conformal_quantile_svm method should be aware of this external dependency and may need to install it from github.com/frankiethull/qrsvm.
+
+```{r, message=FALSE, warning=FALSE}
 library(qrsvm)
 library(dplyr)
 library(parsnip)
@@ -33,7 +48,9 @@ library(probably)
 ```
 
 ### point and interval regressions
-```{r}
+
+The following demonstration begins with an initial point forecast using a Support Vector Machine (SVM) with a Laplacian kernel. Subsequently, we utilize our out-of-bag (OOB) sample to construct conformal prediction intervals. In this comparison, we will evaluate both the int_conformal_quantile method from the {probably} package and the int_conformal_quantile_svm method from the {maize} package. This analysis will provide insights into the performance and characteristics of these two approaches for generating prediction intervals.
+```{r, message=FALSE, warning=FALSE}
 
 set.seed(31415)
 
@@ -94,10 +111,8 @@ corn_test |>
   dplyr::bind_cols(cqr_svm) |>
   dplyr::bind_cols(cqr_rf |> dplyr::select(-.pred)) |>
   ggplot() +
-  geom_ribbon(aes(x = kernel_size, ymin = .pred_lo_svm, ymax = .pred_hi_svm), 
-              fill = "midnightblue", alpha = .5) +
-  geom_ribbon(aes(x = kernel_size, ymin = .pred_lo_rf,  ymax = .pred_hi_rf), 
-              fill = "orange", alpha = .5) +
+  geom_ribbon(aes(x = kernel_size, ymin = .pred_lo_svm, ymax = .pred_hi_svm, fill = "QR-SVM"), alpha = .5) +
+  geom_ribbon(aes(x = kernel_size, ymin = .pred_lo_rf,  ymax = .pred_hi_rf,  fill = "QR-RF"),  alpha = .5) +
   geom_point(aes(x = kernel_size, y = height, color = "truth")) +
   geom_point(aes(x = kernel_size, y = .pred,  color = "pred")) + 
   theme_minimal() +
@@ -106,6 +121,25 @@ corn_test |>
 ```
 
 ## SVM with Linear & SVM Calibration 
+
+In addition to conformal prediction intervals, the {maize} package offers a post-process calibration engine that is similar to the one in {probably}, but utilizes Support Vector Machines (SVMs). The {probably} package includes the cal_estimate_linear function, which calibrates point forecasts using a post-model to address bias in the initial fit. {maize} provides a comparable function called cal_estimate_svm. This function follows a similar framework to cal_estimate_linear, but employs either a vanilla or polynomial kernel, depending on the user's selection in the "smooth" argument. The following section demonstrates the application of this calibration approach.
+
+#### Key Components
+{probably} Package    
+Method: cal_estimate_linear   
+Algorithms:   
+- `stats::glm()` is used when smooth is set to `FALSE`   
+- `mgcv::gam()` is used when smooth is set to `TRUE`  
+     
+{maize} Package       
+Method: cal_estimate_svm      
+Algorithms:        
+- `kernlab::ksvm(kernel = "vanilladot")` is used when smooth is set to `FALSE`    
+- `kernlab::ksvm(kernel = "polydot")` is used when smooth is set to `TRUE`   
+
+#### Implementation Details
+The cal_estimate_svm method in {maize} represents a straightforward substitution of the linear calibration. Instead of using linear models, it employs SVMs for post-calibration. This modification allows users to leverage the potential benefits of SVMs in certain prediction scenarios.
+
 
 
 ```{r}
@@ -126,7 +160,7 @@ predict(svm_fit, corn_test) |>
   cbind(corn_test)
   
 # calibrated preds:
-maize::cal_apply_regression(svm_cal_fit, cal_corn_test)
+maize::cal_apply_regression(svm_cal_fit, cal_corn_test) |> head(10)
 
 ```
 
