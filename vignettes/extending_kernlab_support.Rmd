@@ -1,0 +1,40 @@
+---
+title: "new engines in maize"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{new engines in maize}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(maize)
+```
+
+### kernels for the ksvm engine
+
+{maize} is continuing down the path of least known engines, novelties, and unique ML methods. 
+
+Initially, {maize} was created to add additional kernel support to {parsnip}, outside of the known linear, polynomial, and radial basis function kernels. This added a handful of very odd kernels from within the {kernlab} library. After this first leap, there were a few customized kernels added and registered within {kernlab} and {maize}, based on other efforts by Python and Julia open sourced packages.    
+
+From there, the package started cooking up more stuff, like adding a few {recipes} related to kernel principal component analysis and Hebbian algorithms, which added new **step_** functions to the package. 
+
+
+### beyond the ksvm engine
+
+While the package is built around supporting kernels and, well, support vectors, there are many other engines that can be added to {maize}. A lot of these are within the {kernlab} library, given we have already wrapped the "ksvm", the next step would be adding some of the other engines within {kernlab}. (Another handful of engines come from {mildsvm} - shoutout to @jrosell for finding these. support for these will be tested in the future). 
+
+#### RVM
+
+#### KQR
+
+#### KKNN
+
+
