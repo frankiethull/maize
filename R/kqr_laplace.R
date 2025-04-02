@@ -1,26 +1,25 @@
-#' Laplacian Support Vector Machine
-#' @description laplacian kernel for support vector machines
+#' Laplacian Kernel Quantile Regression
+#' @description laplacian kernel
 #' @param mode regression or classification
-#' @param engine kernlab ksvm
+#' @param engine kernlab kqr
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin
-#' @param margin A positive number for the epsilon in the SVM insensitive
-#'  loss function (regression only)
+#' @param tau a quantile for the loss function
 #' @param laplace_sigma sigma parameter for laplacian
 #' @export
 
-svm_laplace <-
+kqr_laplace <-
   function(mode = "unknown", engine = "kernlab",
-           cost = NULL, margin = NULL, laplace_sigma = NULL) {
+           cost = NULL, tau = NULL, laplace_sigma = NULL) {
 
     args <- list(
-      cost   = rlang::enquo(cost),
-      margin = rlang::enquo(margin),
-      laplace_sigma = rlang::enquo(laplace_sigma)
+      cost   = enquo(cost),
+      tau    = enquo(tau),
+      laplace_sigma = enquo(laplace_sigma)
     )
 
     parsnip::new_model_spec(
-      "svm_laplace",
+      "kqr_laplace",
       args = args,
       eng_args = NULL,
       mode = mode,
@@ -31,22 +30,21 @@ svm_laplace <-
     )
   }
 
-# additional functions so classification probs work, etc.
 # ------------------------------------------------------------------------------
 
-#' @method update svm_laplace
+#' @method update kqr_laplace
 #' @rdname parsnip_update
 #' @export
-update.svm_laplace <-
+update.kqr_laplace <-
   function(object,
            parameters = NULL,
-           cost = NULL, margin = NULL, laplace_sigma = NULL,
+           cost = NULL, tau = NULL, laplace_sigma = NULL,
            fresh = FALSE,
            ...) {
 
     args <- list(
       cost   = enquo(cost),
-      margin  = enquo(margin),
+      tau  = enquo(tau),
       laplace_sigma = enquo(laplace_sigma)
     )
 
@@ -55,7 +53,7 @@ update.svm_laplace <-
       parameters = parameters,
       args_enquo_list = args,
       fresh = fresh,
-      cls = "svm_laplace",
+      cls = "kqr_laplace",
       ...
     )
   }
@@ -63,7 +61,7 @@ update.svm_laplace <-
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.svm_laplace <- function(x, engine = x$engine, ...) {
+translate.kqr_laplace <- function(x, engine = x$engine, ...) {
   x <- parsnip::translate.default(x, engine = engine, ...)
 
   # slightly cleaner code using
@@ -98,6 +96,7 @@ translate.svm_laplace <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.svm_laplace <- function(object, call = rlang::caller_env()) {
+check_args.kqr_laplace <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
+

@@ -1,26 +1,25 @@
-#' Laplacian Support Vector Machine
-#' @description laplacian kernel for support vector machines
-#' @param mode regression or classification
-#' @param engine kernlab ksvm
-#' @param cost A positive number for the cost of predicting a sample within
-#'  or on the wrong side of the margin
-#' @param margin A positive number for the epsilon in the SVM insensitive
-#'  loss function (regression only)
+#' Laplacian Relevance Vector Machine (Experimental RVM)
+#' @description laplacian kernel
+#' @param mode regression only for RVM
+#' @param engine kernlab rvm
+#' @param alpha (alpha) The initial alpha value or vector.
+#' Can be either a vector of length equal to the number of data points or a single number.
+#' @param var 	(var) the initial noise variance
 #' @param laplace_sigma sigma parameter for laplacian
 #' @export
 
-svm_laplace <-
+rvm_laplace <-
   function(mode = "unknown", engine = "kernlab",
-           cost = NULL, margin = NULL, laplace_sigma = NULL) {
+           alpha = NULL, var = NULL, laplace_sigma = NULL) {
 
     args <- list(
-      cost   = rlang::enquo(cost),
-      margin = rlang::enquo(margin),
+      alpha   = enquo(alpha),
+      var     = enquo(var),
       laplace_sigma = rlang::enquo(laplace_sigma)
     )
 
     parsnip::new_model_spec(
-      "svm_laplace",
+      "rvm_laplace",
       args = args,
       eng_args = NULL,
       mode = mode,
@@ -31,22 +30,21 @@ svm_laplace <-
     )
   }
 
-# additional functions so classification probs work, etc.
 # ------------------------------------------------------------------------------
 
-#' @method update svm_laplace
+#' @method update rvm_laplace
 #' @rdname parsnip_update
 #' @export
-update.svm_laplace <-
+update.rvm_laplace <-
   function(object,
            parameters = NULL,
-           cost = NULL, margin = NULL, laplace_sigma = NULL,
+           alpha = NULL, var = NULL, laplace_sigma = NULL,
            fresh = FALSE,
            ...) {
 
     args <- list(
-      cost   = enquo(cost),
-      margin  = enquo(margin),
+      alpha   = enquo(alpha),
+      var     = enquo(var),
       laplace_sigma = enquo(laplace_sigma)
     )
 
@@ -55,7 +53,7 @@ update.svm_laplace <-
       parameters = parameters,
       args_enquo_list = args,
       fresh = fresh,
-      cls = "svm_laplace",
+      cls = "rvm_laplace",
       ...
     )
   }
@@ -63,7 +61,7 @@ update.svm_laplace <-
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.svm_laplace <- function(x, engine = x$engine, ...) {
+translate.rvm_laplace <- function(x, engine = x$engine, ...) {
   x <- parsnip::translate.default(x, engine = engine, ...)
 
   # slightly cleaner code using
@@ -72,12 +70,6 @@ translate.svm_laplace <- function(x, engine = x$engine, ...) {
 
   # add checks to error trap or change things for this method
   if (x$engine == "kernlab") {
-
-    # unless otherwise specified, classification models predict probabilities
-    if (x$mode == "classification" && !any(arg_names == "prob.model"))
-      arg_vals$prob.model <- TRUE
-    if (x$mode == "classification" && any(arg_names == "epsilon"))
-      arg_vals$epsilon <- NULL
 
     # convert sigma and scale to a `kpar` argument.
     if (any(arg_names == "sigma")) {
@@ -98,6 +90,7 @@ translate.svm_laplace <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.svm_laplace <- function(object, call = rlang::caller_env()) {
+check_args.rvm_laplace <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
+
