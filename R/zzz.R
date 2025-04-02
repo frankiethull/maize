@@ -1,6 +1,6 @@
 
 .onLoad <- function(libname, pkgname) {
-# kernlab engines + maize kernels -
+# kernlab engines + maize kernels ----
 
   # SVMs
   make_svm_laplace()
@@ -26,14 +26,15 @@
   # LSSVMs
   make_lssvm_laplace()
 
-# ebmc random-under-sampling (rus) engines -
+# ebmc random-under-sampling (rus) engines ----
 
   # bagged  SVMs
   make_bag_svm_rbf()
 
   # boosted SVMs
-  make_boost_svm_rbf()
+  make_rus_boost_svm_rbf()
+  make_ada_boost_svm_rbf()
 
-# TODO mildsvm engines   -
+# TODO mildsvm engines   ----
 
 }

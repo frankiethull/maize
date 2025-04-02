@@ -1,6 +1,6 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.0.906
+Version: 0.0.1.9001
 Authors@R: c(
     person("Frankie T.", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
@@ -31,7 +31,10 @@ Suggests:
     rmarkdown,
     qrsvm,
     quantregForest,
+    ebmc,
+    e1701,
     workflows,
     kernlab,
-    ggplot2
+    ggplot2,
+    rmarkdown
 VignetteBuilder: quarto, knitr
