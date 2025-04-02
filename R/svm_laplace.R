@@ -31,7 +31,7 @@ svm_laplace <-
     )
   }
 
-# additional functions so classification probs work, etc. 
+# additional functions so classification probs work, etc.
 # ------------------------------------------------------------------------------
 
 #' @method update svm_laplace
