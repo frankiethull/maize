@@ -1,6 +1,6 @@
 #' Laplacian Least Squares Support Vector Machine
 #' @description laplacian kernel
-#' @param mode regression or classification
+#' @param mode classification
 #' @param engine kernlab lssvm
 #' @param laplace_sigma sigma parameter for laplacian
 #' @export

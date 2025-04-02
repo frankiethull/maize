@@ -1,6 +1,6 @@
 #' Laplacian Kernel Quantile Regression
 #' @description laplacian kernel
-#' @param mode regression or classification
+#' @param mode regression
 #' @param engine kernlab kqr
 #' @param cost A positive number for the cost of predicting a sample within
 #'  or on the wrong side of the margin

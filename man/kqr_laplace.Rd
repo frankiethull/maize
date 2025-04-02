@@ -13,7 +13,7 @@ kqr_laplace(
 )
 }
 \arguments{
-\item{mode}{regression or classification}
+\item{mode}{regression}
 
 \item{engine}{kernlab kqr}
 

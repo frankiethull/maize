@@ -7,7 +7,7 @@
 lssvm_laplace(mode = "unknown", engine = "kernlab", laplace_sigma = NULL)
 }
 \arguments{
-\item{mode}{regression or classification}
+\item{mode}{classification}
 
 \item{engine}{kernlab lssvm}
 

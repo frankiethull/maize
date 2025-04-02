@@ -20,15 +20,33 @@ knitr:
 #| echo: false
 
 # parsnip bindings --
-maize_models <- data.frame(
+# kernlab
+kernlab_models <- data.frame(
   extension   = "{parsnip}",
   maize   = c("svm_laplace", "svm_tanh", "svm_bessel", "svm_anova_rbf", 
               "svm_spline","svm_cossim", "svm_cauchy", "svm_tanimoto",
               "svm_sorenson", "svm_tstudent", "svm_fourier", "svm_wavelet",
-              "svm_string"),
-  engine  = rep("kernlab::ksvm", 13),
-  mode    = c(rep("regression & classification", 12), "classification")
-)
+              "svm_string",
+              "lssvm_laplace",
+              "rvm_laplace", "kqr_laplace"),
+  engine  = c(rep("kernlab::ksvm", 13), 
+              "kernlab::lssvm",
+              "kernlab::rvm",  "kernlab::kqr"),
+  mode    = c(rep("regression & classification", 12), 
+              "classification",
+              "classification",
+              rep("regression", 2))
+) 
+
+# ebmc 
+ebmc_models <- data.frame(
+  extension   = "{parsnip}",
+  maize   = c("bag_svm_laplace", "rus_boost_svm_laplace", "ada_boost_svm_laplace"),
+  engine  = c("ebmc::ub", "ebmc::rus",  "ebmc::adam2"),
+  mode    = c(rep("binary-classification", 3))
+) 
+
+maize_models <- kernlab_models |> rbind(ebmc_models)
 
 # recipes bindings --
 maize_recipes <- data.frame(
@@ -55,290 +73,49 @@ bars <- BobRossColors::all_palettes |>
           dplyr::pull(divergent)
 
 # ~ maize gr8 tbl wilderness trail ~ --
-# maize_models |>
-#   rbind(maize_recipes) |>
-#   rbind(maize_probably) |>
-#   gt::gt() |>
-#   gt::tab_header(title = "{maize} bindings",
-#                  subtitle = "more to come!") |>
-#   # theming the tbl
-#   gtUtils::gt_theme_ncaa() |>
-#   gtUtils::gt_border_bars_top(bars[1:5]) |>
-#   gtUtils::gt_border_bars_bottom(bars[6:10]) |>
-#   # colored/bolded cells:
-#   gt::tab_style(
-#     style = list(
-#       gt::cell_fill(color = bars[4]),
-#       gt::cell_text(weight = "bold")
-#       ),
-#     locations = gt::cells_body(
-#       columns = extension,
-#       rows = extension == "{parsnip}"
-#     )
-#   ) |>
-#   gt::tab_style(
-#     style = list(
-#       gt::cell_fill(color = bars[6]),
-#       gt::cell_text(weight = "bold")
-#       ),
-#     locations = gt::cells_body(
-#       columns = extension,
-#       rows = extension == "{recipes}"
-#     )
-#   ) |>
-#     gt::tab_style(
-#     style = list(
-#       gt::cell_fill(color = bars[8]),
-#       gt::cell_text(weight = "bold")
-#       ),
-#     locations = gt::cells_body(
-#       columns = extension,
-#       rows = extension == "{probably}"
-#     )
-#   ) |>
-#   gt::gtsave("/man/figures/gtmaize.png")
-```
-<img src="man/figures/gtmaize.png" align="center" alt="" />
-
-## Example Overview    
-### corn kernels and svm kernels
-
-say we have three types of corn with different size kernels which create different height corn. we could (1) create a support vector machine that can predict the height of the corn given the kernel type and kernel size, we could also (2) predict the corn type given the kernel size and corn height. 
-
-
-#### corn kernel dataset 
-```{r}
-#| message: false
-#| warning: false
-library(parsnip)
-library(maize)
-library(ggplot2)
-
-
-# use this later to create a classification field
-# -----------------------------------------------
-kernel_min <- corn_data$kernel_size |> min()
-kernel_max <- corn_data$kernel_size |> max()
-kernel_vec <- seq(kernel_min, kernel_max, by = 1)
-height_min <- corn_data$height |> min()
-height_max <- corn_data$height |> max() 
-height_vec <- seq(height_min, height_max, by = 1)
-corn_grid <- expand.grid(kernel_size = kernel_vec, height = height_vec)
-# -----------------------------------------------
-
-maize::corn_data |>
-    ggplot() +
-    geom_point(aes(x = kernel_size, y = height, color = type)) +
-    theme_minimal() +
-    labs(title = 'corn kernel data') 
+maize_models |>
+  rbind(maize_recipes) |>
+  rbind(maize_probably) |>
+  gt::gt() |>
+  gt::tab_header(title = paste0(emo::ji("corn"),"{maize} bindings"),
+                 subtitle = "more to come!") |>
+  # theming the tbl
+  gtUtils::gt_theme_ncaa() |>
+  gtUtils::gt_border_bars_top(bars[1:5]) |>
+  gtUtils::gt_border_bars_bottom(bars[6:10]) |>
+  # colored/bolded cells:
+  gt::tab_style(
+    style = list(
+      gt::cell_fill(color = bars[4]),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = extension,
+      rows = extension == "{parsnip}"
+    )
+  ) |>
+  gt::tab_style(
+    style = list(
+      gt::cell_fill(color = bars[6]),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = extension,
+      rows = extension == "{recipes}"
+    )
+  ) |>
+    gt::tab_style(
+    style = list(
+      gt::cell_fill(color = bars[8]),
+      gt::cell_text(weight = "bold")
+      ),
+    locations = gt::cells_body(
+      columns = extension,
+      rows = extension == "{probably}"
+    )
+  ) |>
+  gt::as_raw_html()
 ```
 
-## Regression
-### regression for corn kernel height given a specialty svm kernel
-
-```{r}
-set.seed(31415)
-corn_train <- corn_data |> dplyr::sample_frac(.80)
-corn_test  <- corn_data |> dplyr::anti_join(corn_train)
-
-# model params --
-  svm_reg_spec <- 
-    svm_bessel(cost = 1, margin = 0.1) |> 
-    set_mode("regression") |>
-    set_engine("kernlab")
-
-
-# fit --
-
-  svm_reg_fit <- svm_reg_spec |> fit(height ~ ., data = corn_train)
-
-# predictions --
-preds <- predict(svm_reg_fit, corn_test)
-
-# plot --
-corn_test |>
-  cbind(preds) |> 
-    ggplot() +
-    geom_point(aes(x = kernel_size, y = height, color = type), shape = 1, size = 2) +
-    geom_point(aes(x = kernel_size, y = .pred,  color = type), shape = 2, size = 3) +
-    theme_minimal() +
-    labs(title = 'Bessel Kernel SVM',
-         subtitle = "corn height prediction") 
-```
-
-## Classification
-### classification of corn kernel type given a specialty svm kernel
-
-```{r}
-# model params --
-  svm_cls_spec <- 
-    svm_laplace(cost = 1, margin = 0.1, laplace_sigma = 10) |> 
-    set_mode("classification") |>
-    set_engine("kernlab")
-  
-# fit --
-  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
-
-# predictions --
-preds <- predict(svm_cls_fit, corn_grid, "class")
-pred_grid <- corn_grid |> cbind(preds)
-
-# plot --
-corn_test |>
-  ggplot() +
-  geom_tile(inherit.aes = FALSE,
-            data = pred_grid, 
-            aes(x = kernel_size, y = height, fill = .pred_class),
-            alpha = .8) + 
-  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
-  theme_minimal() +
-  labs(subtitle = "Laplacian Kernel") +
-  scale_fill_viridis_d() +
-  scale_color_manual(values = c("violet", "cyan", "orange"))
-
-```
-
-
-```{r}
-# model params --
-  svm_cls_spec <- 
-    svm_cossim(cost = 1, margin = 0.1) |> 
-    set_mode("classification") |>
-    set_engine("kernlab")
-  
-# fit --
-  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
-
-# predictions --
-preds <- predict(svm_cls_fit, corn_grid, "class")
-pred_grid <- corn_grid |> cbind(preds)
-
-# plot --
-corn_test |>
-  ggplot() +
-  geom_tile(inherit.aes = FALSE,
-            data = pred_grid, 
-            aes(x = kernel_size, y = height, fill = .pred_class),
-            alpha = .8) + 
-  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
-  theme_minimal() +
-  labs(subtitle = "Cossim Similarity Kernel") +
-  scale_fill_viridis_d() +
-  scale_color_manual(values = c("violet", "cyan", "orange"))
-
-```
-
-
-```{r}
-# model params --
-  svm_cls_spec <- 
-    svm_anova_rbf(cost = 1, margin = 0.1) |> 
-    set_mode("classification") |>
-    set_engine("kernlab")
-  
-# fit --
-  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
-
-# predictions --
-preds <- predict(svm_cls_fit, corn_grid, "class")
-pred_grid <- corn_grid |> cbind(preds)
-
-# plot --
-corn_test |>
-  ggplot() +
-  geom_tile(inherit.aes = FALSE,
-            data = pred_grid, 
-            aes(x = kernel_size, y = height, fill = .pred_class),
-            alpha = .8) + 
-  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
-  theme_minimal() +
-  labs(subtitle = "ANOVA RBF Kernel") +
-  scale_fill_viridis_d() +
-  scale_color_manual(values = c("violet", "cyan", "orange"))
-
-```
-
-
-```{r}
-# model params --
-  svm_cls_spec <- 
-    svm_tanimoto(cost = 1, margin = 0.1) |> 
-    set_mode("classification") |>
-    set_engine("kernlab")
-  
-# fit --
-  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
-
-# predictions --
-preds <- predict(svm_cls_fit, corn_grid, "class")
-pred_grid <- corn_grid |> cbind(preds)
-
-# plot --
-corn_test |>
-  ggplot() +
-  geom_tile(inherit.aes = FALSE,
-            data = pred_grid, 
-            aes(x = kernel_size, y = height, fill = .pred_class),
-            alpha = .8) + 
-  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
-  theme_minimal() +
-  labs(subtitle = "Tanimoto Kernel") +
-  scale_fill_viridis_d() +
-  scale_color_manual(values = c("violet", "cyan", "orange"))
-
-```
-
-```{r}
-# model params --
-  svm_cls_spec <- 
-    svm_tstudent(cost = 1, margin = 0.1, degree = 3) |> 
-    set_mode("classification") |>
-    set_engine("kernlab")
-  
-# fit --
-  svm_cls_fit <- svm_cls_spec |> fit(type ~ ., data = corn_train)
-
-# predictions --
-preds <- predict(svm_cls_fit, corn_grid, "class")
-pred_grid <- corn_grid |> cbind(preds)
-
-# plot --
-corn_test |>
-  ggplot() +
-  geom_tile(inherit.aes = FALSE,
-            data = pred_grid, 
-            aes(x = kernel_size, y = height, fill = .pred_class),
-            alpha = .8) + 
-  geom_point(aes(x = kernel_size, y = height, color = type, shape = type), size = 3) +
-  theme_minimal() +
-  labs(subtitle = "T-Student Kernel") +
-  scale_fill_viridis_d() +
-  scale_color_manual(values = c("violet", "cyan", "orange"))
-
-```
-
-
-
-## future enhancements
-
-additional kernels are always welcome & added periodically. The more novel, the better, this is my hope for {maize}. Other enhancements include adding *lssvm*, *rvm* and/or *kqr* engine bindings to parsnip.     
-
-## references 
-
-this package is based off the initial parsnip code, kernlab documents, and tidymodels' developer guides. The {maize} package is a corny pun of {parsnip} & {kernels}, aw-shucks! 
-
-##### cheatsheets on how to register a model
-- https://www.tidymodels.org/learn/develop/models/
-- https://github.com/tidymodels/parsnip/blob/main/R/svm_linear.R
-- https://github.com/tidymodels/parsnip/blob/main/R/svm_rbf.R
-- https://github.com/tidymodels/parsnip/blob/main/R/svm_rbf_data.R
-
-##### make function ideas, zzz.R,check_args, 
-- https://github.com/tidymodels/poissonreg/tree/main/R
-- https://github.com/tidymodels/bonsai/tree/main/R
-
-##### kernel parameters (kpar)
-- https://github.com/cran/kernlab/blob/master/R/kernels.R
-- https://www.rdocumentation.org/packages/kernlab/versions/0.9-32/topics/ksvm
 
 

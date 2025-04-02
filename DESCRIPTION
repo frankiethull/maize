@@ -1,6 +1,6 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.1.9001
+Version: 0.0.1.9002
 Authors@R: c(
     person("Frankie T.", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
