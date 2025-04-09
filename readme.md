@@ -21,7 +21,7 @@ steps for {recipes}:
 
 ### maize engines
 
-<div id="rtjobajvew" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ntzpzrmvkz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 <table class="gt_table" data-quarto-postprocess="true"
@@ -384,12 +384,43 @@ data-valign="middle">binary-classification</td>
 </tr>
 <tr style="border-style: none;">
 <td class="gt_row gt_left gt_striped" headers="extension"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #ABB4BF;"
+data-bgcolor="#ABB4BF" data-valign="middle">{parsnip}</td>
+<td class="gt_row gt_left gt_striped" headers="maize"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
+data-valign="middle"
+data-bgcolor="rgba(128, 128, 128, 0.05)">misvm_orova_rbf</td>
+<td class="gt_row gt_left gt_striped" headers="engine"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
+data-valign="middle"
+data-bgcolor="rgba(128, 128, 128, 0.05)">mildsvm::misvm_orova</td>
+<td class="gt_row gt_left gt_striped" headers="mode"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
+data-valign="middle"
+data-bgcolor="rgba(128, 128, 128, 0.05)">classification</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="extension"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #E6E7E3;"
+data-bgcolor="#E6E7E3" data-valign="middle">{recipes}</td>
+<td class="gt_row gt_left" headers="maize"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
+data-valign="middle">step_kpca_laplace</td>
+<td class="gt_row gt_left" headers="engine"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
+data-valign="middle">kernlab::kpca</td>
+<td class="gt_row gt_left" headers="mode"
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
+data-valign="middle">transformation steps</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left gt_striped" headers="extension"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #E6E7E3;"
 data-bgcolor="#E6E7E3" data-valign="middle">{recipes}</td>
 <td class="gt_row gt_left gt_striped" headers="maize"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle"
-data-bgcolor="rgba(128, 128, 128, 0.05)">step_kpca_laplace</td>
+data-bgcolor="rgba(128, 128, 128, 0.05)">step_kpca_tanh</td>
 <td class="gt_row gt_left gt_striped" headers="engine"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle"
@@ -405,10 +436,10 @@ style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2
 data-bgcolor="#E6E7E3" data-valign="middle">{recipes}</td>
 <td class="gt_row gt_left" headers="maize"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">step_kpca_tanh</td>
+data-valign="middle">step_kha_laplace</td>
 <td class="gt_row gt_left" headers="engine"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">kernlab::kpca</td>
+data-valign="middle">kernlab::kha</td>
 <td class="gt_row gt_left" headers="mode"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle">transformation steps</td>
@@ -420,7 +451,7 @@ data-bgcolor="#E6E7E3" data-valign="middle">{recipes}</td>
 <td class="gt_row gt_left gt_striped" headers="maize"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle"
-data-bgcolor="rgba(128, 128, 128, 0.05)">step_kha_laplace</td>
+data-bgcolor="rgba(128, 128, 128, 0.05)">step_kha_tanh</td>
 <td class="gt_row gt_left gt_striped" headers="engine"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle"
@@ -432,48 +463,34 @@ data-bgcolor="rgba(128, 128, 128, 0.05)">transformation steps</td>
 </tr>
 <tr style="border-style: none;">
 <td class="gt_row gt_left" headers="extension"
-style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #E6E7E3;"
-data-bgcolor="#E6E7E3" data-valign="middle">{recipes}</td>
+style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #838873;"
+data-bgcolor="#838873" data-valign="middle">{probably}</td>
 <td class="gt_row gt_left" headers="maize"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">step_kha_tanh</td>
+data-valign="middle">int_conformal_quantile_svm</td>
 <td class="gt_row gt_left" headers="engine"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">kernlab::kha</td>
+data-valign="middle">qrsvm::qrsvm</td>
 <td class="gt_row gt_left" headers="mode"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">transformation steps</td>
+data-valign="middle">prediction intervals</td>
 </tr>
-<tr style="border-style: none;">
+<tr style="border-style: none; border-bottom: 2px solid #ffffff00;">
 <td class="gt_row gt_left gt_striped" headers="extension"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #838873;"
 data-bgcolor="#838873" data-valign="middle">{probably}</td>
 <td class="gt_row gt_left gt_striped" headers="maize"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle"
-data-bgcolor="rgba(128, 128, 128, 0.05)">int_conformal_quantile_svm</td>
+data-bgcolor="rgba(128, 128, 128, 0.05)">cal_estimate_svm</td>
 <td class="gt_row gt_left gt_striped" headers="engine"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
 data-valign="middle"
-data-bgcolor="rgba(128, 128, 128, 0.05)">qrsvm::qrsvm</td>
+data-bgcolor="rgba(128, 128, 128, 0.05)">kernlab::ksvm</td>
 <td class="gt_row gt_left gt_striped" headers="mode"
 style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; background-color: rgba(128, 128, 128, 0.05); padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle" data-bgcolor="rgba(128, 128, 128, 0.05)">prediction
-intervals</td>
-</tr>
-<tr style="border-style: none; border-bottom: 2px solid #ffffff00;">
-<td class="gt_row gt_left" headers="extension"
-style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px; font-weight: bold; background-color: #838873;"
-data-bgcolor="#838873" data-valign="middle">{probably}</td>
-<td class="gt_row gt_left" headers="maize"
-style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">cal_estimate_svm</td>
-<td class="gt_row gt_left" headers="engine"
-style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">kernlab::ksvm</td>
-<td class="gt_row gt_left" headers="mode"
-style="text-align: left; border-style: none; padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; padding: 5px 5px 5px 25px; font-family: &#39;Open Sans&#39;; font-size: 14px;"
-data-valign="middle">calibrator</td>
+data-valign="middle"
+data-bgcolor="rgba(128, 128, 128, 0.05)">calibrator</td>
 </tr>
 </tbody><tfoot class="gt_sourcenotes"
 style="border-style: none; color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3;"

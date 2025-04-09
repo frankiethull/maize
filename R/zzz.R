@@ -35,6 +35,9 @@
   make_rus_boost_svm_rbf()
   make_ada_boost_svm_rbf()
 
-# TODO mildsvm engines   ----
+# mildsvm engines   ----
+
+  # multi-instance SVMs
+  make_misvm_orova_rbf()
 
 }

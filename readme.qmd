@@ -46,7 +46,15 @@ ebmc_models <- data.frame(
   mode    = c(rep("binary-classification", 3))
 ) 
 
-maize_models <- kernlab_models |> rbind(ebmc_models)
+# mildsvm 
+mild_models <- data.frame(
+  extension  = "{parsnip}",
+  maize  = c("misvm_orova_rbf"),
+  engine = c("mildsvm::misvm_orova"),
+  mode   = c("classification")
+)
+
+maize_models <- kernlab_models |> rbind(ebmc_models) |> rbind(mild_models)
 
 # recipes bindings --
 maize_recipes <- data.frame(
