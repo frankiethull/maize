@@ -8,10 +8,10 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Bindings for svm kernels via kernlab for use with the 'parsnip' package. Specifically related to specialty kernels for support vector machines not available in parsnip. package includes interface for various kernlab kernels and custom kernels too.
+Bindings for SVMs and special kernels via kernlab, e1701, ebmc, and mildsvm extending the 'parsnip' package. Specifically related to kernels for support vector machines not available in parsnip. Package also includes interfaces for novel SVM preprocessors (recipes) and postprocessors (probably).
 }
 \author{
-\strong{Maintainer}: Frankie T. Hull \email{frankiethull@gmail.com}
+\strong{Maintainer}: Frank Hull \email{frankiethull@gmail.com}
 
 Other contributors:
 \itemize{

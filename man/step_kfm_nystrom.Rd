@@ -70,7 +70,6 @@ kernel approximation.
 }
 \seealso{
 Other multivariate transformation steps: 
-\code{\link{step_kcca_laplace}()},
 \code{\link{step_kfa_laplace}()},
 \code{\link{step_kha_laplace}()},
 \code{\link{step_kha_tanh}()},

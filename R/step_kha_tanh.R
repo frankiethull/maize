@@ -90,7 +90,7 @@ prep.step_kha_tanh <- function(x, training, info = NULL, ...) {
         threshold =  x$th,
         stop_iter =  x$maxiter,
         kernel = "tanhdot",
-        kpar = list(scale_factor = x$scale_factor)
+        kpar = list(scale = x$scale_factor)
       )
     kprc <- try(rlang::eval_tidy(cl), silent = TRUE)
     if (inherits(kprc, "try-error")) {
@@ -108,7 +108,7 @@ prep.step_kha_tanh <- function(x, training, info = NULL, ...) {
     role = x$role,
     trained = TRUE,
     num_comp = x$num_comp,
-    scale_factor = x$scale_factor,
+    scale = x$scale_factor,
     learn_rate = x$eta,
     threshold =  x$th,
     stop_iter =  x$maxiter,

@@ -75,7 +75,7 @@ prep.step_kpca_tanh <- function(x, training, info = NULL, ...) {
         x = rlang::expr(as.matrix(training[, col_names])),
         features = x$num_comp,
         kernel = "tanhdot",
-        kpar = list(scale_factor = x$scale_factor)
+        kpar = list(scale = x$scale_factor)
       )
     kprc <- try(rlang::eval_tidy(cl), silent = TRUE)
     if (inherits(kprc, "try-error")) {
