@@ -1,14 +1,14 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.2.9003
+Version: 0.0.2.9005
 Authors@R: c(
-    person("Frankie T.", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
+    person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
     )
-Description: Bindings for svm kernels via kernlab for use with the
-    'parsnip' package. Specifically related to specialty kernels for 
-     support vector machines not available in parsnip. 
-     package includes interface for various kernlab kernels and custom kernels too. 
+Description: Bindings for SVMs and special kernels via kernlab, e1701, ebmc, and mildsvm extending the
+    'parsnip' package. Specifically related to kernels for support vector machines 
+     not available in parsnip. 
+     Package also includes interfaces for novel SVM preprocessors (recipes) and postprocessors (probably). 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -33,6 +33,7 @@ Suggests:
     quantregForest,
     ebmc,
     e1701,
+    mildsvm,
     workflows,
     kernlab,
     ggplot2,
