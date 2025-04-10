@@ -2,7 +2,7 @@
 #'
 #' `step_kpca_laplace()` creates a *specification* of a recipe step that will
 #' convert numeric data into one or more principal components using a laplace
-#' kernel basis expansion.
+#' kernel
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables

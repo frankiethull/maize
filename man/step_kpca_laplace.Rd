@@ -66,10 +66,13 @@ the computations for subsequent operations.}
 \description{
 \code{step_kpca_laplace()} creates a \emph{specification} of a recipe step that will
 convert numeric data into one or more principal components using a laplace
-kernel basis expansion.
+kernel
 }
 \seealso{
 Other multivariate transformation steps: 
+\code{\link{step_kcca_laplace}()},
+\code{\link{step_kfa_laplace}()},
+\code{\link{step_kfm_nystrom}()},
 \code{\link{step_kha_laplace}()},
 \code{\link{step_kha_tanh}()},
 \code{\link{step_kpca_tanh}()}
