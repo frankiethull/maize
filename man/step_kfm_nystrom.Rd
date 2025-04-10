@@ -2,7 +2,7 @@
 % Please edit documentation in R/step_kfm_nystrom.R
 \name{step_kfm_nystrom}
 \alias{step_kfm_nystrom}
-\title{Nystrom RBF kernel feature map}
+\title{Nystrom kernel feature map approximation (RBF)}
 \usage{
 step_kfm_nystrom(
   recipe,
@@ -12,8 +12,8 @@ step_kfm_nystrom(
   res = NULL,
   columns = NULL,
   sigma = 0.2,
-  m = nrow(training),
-  r = m,
+  m = NULL,
+  r = NULL,
   sampling = "random",
   prefix = "kFM",
   keep_original_cols = FALSE,
@@ -44,7 +44,7 @@ is a placeholder and will be populated once \code{\link[=prep]{prep()}} is used.
 
 \item{sigma}{A numeric value for the nystrom function parameter.}
 
-\item{m}{The number rows from df to sample in fitting.}
+\item{m}{The number rows from df to sample in fitting. defaults to nrow of data}
 
 \item{r}{The rank of matrix approximation to use. Must be less than or equal to m, the default.}
 
@@ -65,7 +65,7 @@ the computations for subsequent operations.}
 }
 \description{
 \code{step_kfm_nystrom()} creates a \emph{specification} of a recipe step that will
-convert numeric data into a feature appoximation. nystrom approximates the 'radial' kernel.
+convert numeric data into a feature appoximation. nystrom approximates the 'radial'
 kernel approximation.
 }
 \seealso{

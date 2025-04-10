@@ -180,31 +180,34 @@ print.step_kfm_nystrom <- function(x, width = max(20, options()$width - 40), ...
   invisible(x)
 }
 
+#' @rdname tidy.recipe
+#' @export
+tidy.step_kfm_nystrom <- function(x, ...) {
+  uses_dim_red(x)
+  if (is_trained(x)) {
+    res <- tibble(terms = unname(x$columns))
+  } else {
+    term_names <- sel2char(x$terms)
+    res <- tibble(terms = term_names)
+  }
+  res$id <- x$id
+  res
+}
 
-#' tidy.step_kfm_nystrom <- function(x, ...) {
-#'   uses_dim_red(x)
-#'   if (is_trained(x)) {
-#'     res <- tibble(terms = unname(x$columns))
-#'   } else {
-#'     term_names <- sel2char(x$terms)
-#'     res <- tibble(terms = term_names)
-#'   }
-#'   res$id <- x$id
-#'   res
-#' }
-
-#' tunable.step_kfm_nystrom <- function(x, ...) {
-#'   tibble::tibble(
-#'     name = c("m", "r"),
-#'     call_info = list(
-#'       list(pkg = "dials", fun = "m"),
-#'       list(pkg = "dials", fun = "r")
-#'     ),
-#'     source = "recipe",
-#'     component = "step_kfm_nystrom",
-#'     component_id = x$id
-#'   )
-#' }
+#' @export
+tunable.step_kfm_nystrom <- function(x, ...) {
+  tibble::tibble(
+    name = c("m", "r"),
+    call_info = list(
+      # TODO add dials
+      list(pkg = "maize", fun = "m"),
+      list(pkg = "maize", fun = "r")
+    ),
+    source = "recipe",
+    component = "step_kfm_nystrom",
+    component_id = x$id
+  )
+}
 
 #' @rdname required_pkgs.recipe
 #' @export
