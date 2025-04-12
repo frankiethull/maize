@@ -19,6 +19,7 @@ step_kpca_tanh <-
            res = NULL,
            columns = NULL,
            scale_factor = 0.2,
+           offset = 0,
            prefix = "kPC",
            keep_original_cols = FALSE,
            skip = FALSE,
@@ -35,6 +36,7 @@ step_kpca_tanh <-
         res = res,
         columns = columns,
         scale_factor = scale_factor,
+        offset = offset,
         prefix = prefix,
         keep_original_cols = keep_original_cols,
         skip = skip,
@@ -44,7 +46,7 @@ step_kpca_tanh <-
   }
 
 step_kpca_tanh_new <-
-  function(terms, role, trained, num_comp, res, columns, scale_factor, prefix,
+  function(terms, role, trained, num_comp, res, columns, scale_factor, offset, prefix,
            keep_original_cols, skip, id) {
     step(
       subclass = "kpca_tanh",
@@ -55,6 +57,7 @@ step_kpca_tanh_new <-
       res = res,
       columns = columns,
       scale_factor = scale_factor,
+      offset = offset,
       prefix = prefix,
       keep_original_cols = keep_original_cols,
       skip = skip,
@@ -75,7 +78,8 @@ prep.step_kpca_tanh <- function(x, training, info = NULL, ...) {
         x = rlang::expr(as.matrix(training[, col_names])),
         features = x$num_comp,
         kernel = "tanhdot",
-        kpar = list(scale = x$scale_factor)
+        th     = 1e-20, # req low thres for tanh
+        kpar = list(scale = x$scale_factor, offset = x$offset)
       )
     kprc <- try(rlang::eval_tidy(cl), silent = TRUE)
     if (inherits(kprc, "try-error")) {
@@ -94,6 +98,7 @@ prep.step_kpca_tanh <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     num_comp = x$num_comp,
     scale_factor = x$scale_factor,
+    offset = x$offset,
     res = kprc,
     columns = col_names,
     prefix = x$prefix,
@@ -159,7 +164,8 @@ tunable.step_kpca_tanh <- function(x, ...) {
     name = c("num_comp", "scale_factor"),
     call_info = list(
       list(pkg = "dials", fun = "num_comp", range = c(1L, 4L)),
-      list(pkg = "dials", fun = "scale_factor")
+      list(pkg = "dials", fun = "scale_factor"),
+      list(pkg = "dials", fun = "offset")
     ),
     source = "recipe",
     component = "step_kpca_tanh",

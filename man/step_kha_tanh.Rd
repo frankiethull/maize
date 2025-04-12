@@ -14,7 +14,7 @@ step_kha_tanh(
   columns = NULL,
   scale_factor = 0.2,
   learn_rate = 0.005,
-  threshold = 1e-04,
+  threshold = 1e-06,
   stop_iter = 100,
   prefix = "kha",
   keep_original_cols = FALSE,

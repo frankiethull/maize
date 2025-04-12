@@ -13,6 +13,7 @@ step_kpca_tanh(
   res = NULL,
   columns = NULL,
   scale_factor = 0.2,
+  offset = 0,
   prefix = "kPC",
   keep_original_cols = FALSE,
   skip = FALSE,
