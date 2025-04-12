@@ -13,6 +13,7 @@ step_kpca_tanh(
   res = NULL,
   columns = NULL,
   scale_factor = 0.2,
+  offset = 0,
   prefix = "kPC",
   keep_original_cols = FALSE,
   skip = FALSE,
@@ -70,6 +71,8 @@ kernel basis expansion.
 }
 \seealso{
 Other multivariate transformation steps: 
+\code{\link{step_kfa_laplace}()},
+\code{\link{step_kfm_nystrom}()},
 \code{\link{step_kha_laplace}()},
 \code{\link{step_kha_tanh}()},
 \code{\link{step_kpca_laplace}()}

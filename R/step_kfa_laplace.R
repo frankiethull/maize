@@ -1,8 +1,9 @@
-#' Laplacian function kernel PCA signal extraction
+#' Laplacian function kernel KFA signal extraction
 #'
-#' `step_kpca_laplace()` creates a *specification* of a recipe step that will
-#' convert numeric data into one or more principal components using a laplace
-#' kernel
+#' `step_kfa_laplace()` creates a *specification* of a recipe step that will
+#' convert numeric data into one or more kernel components using a laplace kernel.
+#' similar to KPCA, but instead of extracting eigenvectors of the dataset in feature space,
+#' it approximates the eigenvectors by selecting patterns which are good basis vectors for the dataset.
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables
@@ -24,7 +25,7 @@
 #' @param keep_original_cols A logical to keep the original variables in the
 #'  output. Defaults to `FALSE`.
 #' @param sigma A numeric value for the laplace function parameter.
-#' @param res An S4 [kernlab::kpca()] object is stored
+#' @param res An S4 [kernlab::kfa()] object is stored
 #'  here once this preprocessing step has be trained by
 #'  [prep()].
 #' @param skip A logical. Should the step be skipped when the
@@ -36,7 +37,7 @@
 #' @param id A character string that is unique to this step to identify it.
 #' @family multivariate transformation steps
 #' @export
-step_kpca_laplace <-
+step_kfa_laplace <-
   function(recipe,
            ...,
            role = "predictor",
@@ -45,15 +46,15 @@ step_kpca_laplace <-
            res = NULL,
            columns = NULL,
            sigma = 0.2,
-           prefix = "kPC",
+           prefix = "kFA",
            keep_original_cols = FALSE,
            skip = FALSE,
-           id = rand_id("kpca_laplace")) {
-    recipes_pkg_check(required_pkgs.step_kpca_laplace())
+           id = rand_id("kfa_laplace")) {
+    recipes_pkg_check(required_pkgs.step_kfa_laplace())
 
     add_step(
       recipe,
-      step_kpca_laplace_new(
+      step_kfa_laplace_new(
         terms = enquos(...),
         role = role,
         trained = trained,
@@ -69,11 +70,11 @@ step_kpca_laplace <-
     )
   }
 
-step_kpca_laplace_new <-
+step_kfa_laplace_new <-
   function(terms, role, trained, num_comp, res, columns, sigma, prefix,
            keep_original_cols, skip, id) {
     step(
-      subclass = "kpca_laplace",
+      subclass = "kfa_laplace",
       terms = terms,
       role = role,
       trained = trained,
@@ -89,14 +90,14 @@ step_kpca_laplace_new <-
   }
 
 #' @export
-prep.step_kpca_laplace <- function(x, training, info = NULL, ...) {
+prep.step_kfa_laplace <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  check_type(training[, col_names], types = c("double", "integer"))
+  check_type(training[, col_names], types = c("double", "integer", "factor"))
 
   if (x$num_comp > 0 && length(col_names) > 0) {
     cl <-
       rlang::call2(
-        "kpca",
+        "kfa",
         .ns = "kernlab",
         x = rlang::expr(as.matrix(training[, col_names])),
         features = x$num_comp,
@@ -114,7 +115,7 @@ prep.step_kpca_laplace <- function(x, training, info = NULL, ...) {
     kprc <- NULL
   }
 
-  step_kpca_laplace_new(
+  step_kfa_laplace_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
@@ -130,7 +131,7 @@ prep.step_kpca_laplace <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-bake.step_kpca_laplace <- function(object, new_data, ...) {
+bake.step_kfa_laplace <- function(object, new_data, ...) {
   uses_dim_red(object)
   col_names <- names(object$columns)
   check_new_data(col_names, object, new_data)
@@ -158,8 +159,8 @@ bake.step_kpca_laplace <- function(object, new_data, ...) {
 }
 
 #' @export
-print.step_kpca_laplace <- function(x, width = max(20, options()$width - 40), ...) {
-  title <- "laplace kernel PCA extraction with "
+print.step_kfa_laplace <- function(x, width = max(20, options()$width - 40), ...) {
+  title <- "laplace kernel KFA extraction with "
   print_step(x$columns, x$terms, x$trained, title, width)
   invisible(x)
 }
@@ -167,7 +168,7 @@ print.step_kpca_laplace <- function(x, width = max(20, options()$width - 40), ..
 
 #' @rdname tidy.recipe
 #' @export
-tidy.step_kpca_laplace <- function(x, ...) {
+tidy.step_kfa_laplace <- function(x, ...) {
   uses_dim_red(x)
   if (is_trained(x)) {
     res <- tibble(terms = unname(x$columns))
@@ -180,7 +181,7 @@ tidy.step_kpca_laplace <- function(x, ...) {
 }
 
 #' @export
-tunable.step_kpca_laplace <- function(x, ...) {
+tunable.step_kfa_laplace <- function(x, ...) {
   tibble::tibble(
     name = c("num_comp", "sigma"),
     call_info = list(
@@ -188,13 +189,13 @@ tunable.step_kpca_laplace <- function(x, ...) {
       list(pkg = "dials", fun = "laplace_sigma")
     ),
     source = "recipe",
-    component = "step_kpca_laplace",
+    component = "step_kfa_laplace",
     component_id = x$id
   )
 }
 
 #' @rdname required_pkgs.recipe
 #' @export
-required_pkgs.step_kpca_laplace <- function(x, ...) {
+required_pkgs.step_kfa_laplace <- function(x, ...) {
   c("kernlab")
 }

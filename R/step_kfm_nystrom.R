@@ -1,8 +1,8 @@
-#' Laplacian function kernel PCA signal extraction
+#' Nystrom kernel feature map approximation (RBF)
 #'
-#' `step_kpca_laplace()` creates a *specification* of a recipe step that will
-#' convert numeric data into one or more principal components using a laplace
-#' kernel
+#' `step_kfm_nystrom()` creates a *specification* of a recipe step that will
+#' convert numeric data into a feature appoximation. nystrom approximates the 'radial'
+#' kernel approximation.
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose variables
@@ -12,19 +12,16 @@
 #'  the original variables will be used as _predictors_ in a model.
 #' @param trained A logical to indicate if the quantities for
 #'  preprocessing have been estimated.
-#' @param num_comp The number of components to retain as new predictors.
-#'  If `num_comp` is greater than the number of columns or the number of
-#'  possible components, a smaller value will be used. If `num_comp = 0`
-#'  is set then no transformation is done and selected variables will
-#'  stay unchanged, regardless of the value of `keep_original_cols`.
+#' @param m The number rows from df to sample in fitting. defaults to nrow of data
+#' @param r The rank of matrix approximation to use. Must be less than or equal to m, the default.
 #' @param columns A character string of the selected variable names. This field
 #'   is a placeholder and will be populated once [prep()] is used.
 #' @param prefix A character string for the prefix of the resulting new
 #'  variables. See notes below.
 #' @param keep_original_cols A logical to keep the original variables in the
 #'  output. Defaults to `FALSE`.
-#' @param sigma A numeric value for the laplace function parameter.
-#' @param res An S4 [kernlab::kpca()] object is stored
+#' @param sigma A numeric value for the nystrom function parameter.
+#' @param res An [mildsvm::kfm_nystrom()] object is stored
 #'  here once this preprocessing step has be trained by
 #'  [prep()].
 #' @param skip A logical. Should the step be skipped when the
@@ -36,28 +33,32 @@
 #' @param id A character string that is unique to this step to identify it.
 #' @family multivariate transformation steps
 #' @export
-step_kpca_laplace <-
+step_kfm_nystrom <-
   function(recipe,
            ...,
            role = "predictor",
            trained = FALSE,
-           num_comp = 5,
            res = NULL,
            columns = NULL,
            sigma = 0.2,
-           prefix = "kPC",
+           m     = NULL,
+           r     = NULL,
+           sampling = "random",
+           prefix = "kFM",
            keep_original_cols = FALSE,
            skip = FALSE,
-           id = rand_id("kpca_laplace")) {
-    recipes_pkg_check(required_pkgs.step_kpca_laplace())
+           id = rand_id("kfm_nystrom")) {
+    recipes_pkg_check(required_pkgs.step_kfm_nystrom())
 
     add_step(
       recipe,
-      step_kpca_laplace_new(
+      step_kfm_nystrom_new(
         terms = enquos(...),
         role = role,
         trained = trained,
-        num_comp = num_comp,
+        m = m,
+        r = r,
+        sampling = sampling,
         res = res,
         columns = columns,
         sigma = sigma,
@@ -69,15 +70,17 @@ step_kpca_laplace <-
     )
   }
 
-step_kpca_laplace_new <-
-  function(terms, role, trained, num_comp, res, columns, sigma, prefix,
+step_kfm_nystrom_new <-
+  function(terms, role, trained, m, r, sampling, res, sigma, columns, prefix,
            keep_original_cols, skip, id) {
     step(
-      subclass = "kpca_laplace",
+      subclass = "kfm_nystrom",
       terms = terms,
       role = role,
       trained = trained,
-      num_comp = num_comp,
+      m = m,
+      r = r,
+      sampling = sampling,
       res = res,
       columns = columns,
       sigma = sigma,
@@ -89,19 +92,30 @@ step_kpca_laplace_new <-
   }
 
 #' @export
-prep.step_kpca_laplace <- function(x, training, info = NULL, ...) {
+prep.step_kfm_nystrom <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], types = c("double", "integer"))
 
-  if (x$num_comp > 0 && length(col_names) > 0) {
+  if (nrow(training) > 0 && is.null(x$m)) {
+    x$m <- nrow(training)
+  }
+
+  if (nrow(training) > 0 && is.null(x$r)) {
+    x$r <- x$m
+  }
+
+
+  if (nrow(training) > 0 && length(col_names) > 0) {
     cl <-
       rlang::call2(
-        "kpca",
-        .ns = "kernlab",
-        x = rlang::expr(as.matrix(training[, col_names])),
-        features = x$num_comp,
-        kernel = "laplacedot",
-        kpar = list(sigma = x$sigma)
+        "kfm_nystrom",
+        .ns = "mildsvm",
+        df       = rlang::expr(as.matrix(training[, col_names])),
+        m        = x$m,
+        r        = x$r,
+        sampling = x$sampling,
+        sigma    = x$sigma,
+        kernel   = "radial"
       )
     kprc <- try(rlang::eval_tidy(cl), silent = TRUE)
     if (inherits(kprc, "try-error")) {
@@ -114,12 +128,14 @@ prep.step_kpca_laplace <- function(x, training, info = NULL, ...) {
     kprc <- NULL
   }
 
-  step_kpca_laplace_new(
+  step_kfm_nystrom_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
-    num_comp = x$num_comp,
-    sigma = x$sigma,
+    m = x$m,
+    r = x$r,
+    sampling = x$sampling,
+    sigma    = x$sigma,
     res = kprc,
     columns = col_names,
     prefix = x$prefix,
@@ -130,25 +146,25 @@ prep.step_kpca_laplace <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-bake.step_kpca_laplace <- function(object, new_data, ...) {
+bake.step_kfm_nystrom <- function(object, new_data, ...) {
   uses_dim_red(object)
   col_names <- names(object$columns)
   check_new_data(col_names, object, new_data)
 
-  keep_going <- object$num_comp > 0 && length(col_names) > 0
+  keep_going <- nrow(new_data) > 0 && length(col_names) > 0
   if (!keep_going) {
     return(new_data)
   }
 
   cl <-
     rlang::call2(
-      "predict",
-      .ns = "kernlab",
-      object = object$res,
-      rlang::expr(as.matrix(new_data[, col_names]))
+      "build_fm",
+      .ns = "mildsvm",
+      kfm_fit  = object$res,
+      new_data = rlang::expr((new_data[, col_names]))
     )
   comps <- rlang::eval_tidy(cl)
-  comps <- comps[, seq_len(object$num_comp), drop = FALSE]
+  comps <- comps[, seq_len(object$r), drop = FALSE]
   colnames(comps) <- names0(ncol(comps), object$prefix)
   comps <- as_tibble(comps)
   comps <- check_name(comps, new_data, object)
@@ -158,16 +174,15 @@ bake.step_kpca_laplace <- function(object, new_data, ...) {
 }
 
 #' @export
-print.step_kpca_laplace <- function(x, width = max(20, options()$width - 40), ...) {
-  title <- "laplace kernel PCA extraction with "
+print.step_kfm_nystrom <- function(x, width = max(20, options()$width - 40), ...) {
+  title <- "Nyström KFM approximation (RBF) with "
   print_step(x$columns, x$terms, x$trained, title, width)
   invisible(x)
 }
 
-
 #' @rdname tidy.recipe
 #' @export
-tidy.step_kpca_laplace <- function(x, ...) {
+tidy.step_kfm_nystrom <- function(x, ...) {
   uses_dim_red(x)
   if (is_trained(x)) {
     res <- tibble(terms = unname(x$columns))
@@ -180,21 +195,22 @@ tidy.step_kpca_laplace <- function(x, ...) {
 }
 
 #' @export
-tunable.step_kpca_laplace <- function(x, ...) {
+tunable.step_kfm_nystrom <- function(x, ...) {
   tibble::tibble(
-    name = c("num_comp", "sigma"),
+    name = c("m", "r"),
     call_info = list(
-      list(pkg = "dials", fun = "num_comp", range = c(1L, 4L)),
-      list(pkg = "dials", fun = "laplace_sigma")
+      # TODO add dials
+      list(pkg = "maize", fun = "m"),
+      list(pkg = "maize", fun = "r")
     ),
     source = "recipe",
-    component = "step_kpca_laplace",
+    component = "step_kfm_nystrom",
     component_id = x$id
   )
 }
 
 #' @rdname required_pkgs.recipe
 #' @export
-required_pkgs.step_kpca_laplace <- function(x, ...) {
-  c("kernlab")
+required_pkgs.step_kfm_nystrom <- function(x, ...) {
+  c("mildsvm")
 }

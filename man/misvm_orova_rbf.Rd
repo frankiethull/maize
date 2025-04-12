@@ -2,7 +2,7 @@
 % Please edit documentation in R/misvm_orova_rbf.R
 \name{misvm_orova_rbf}
 \alias{misvm_orova_rbf}
-\title{Multiple Instance SVM Ordinal Outcome Data One-Vs-All with Radial Basis Function Kernel}
+\title{Multiple Instance SVMs for Ordinal Outcome Data, One-Vs-All, with Radial Basis Function Kernel}
 \usage{
 misvm_orova_rbf(
   mode = "unknown",
@@ -22,5 +22,5 @@ or on the wrong side of the margin}
 \item{rbf_sigma}{A positive number for radial basis function.}
 }
 \description{
-Multiple Instance SVM Ordinal Outcome Data One-Vs-All with Radial Basis Function Kernel
+Multiple Instance SVMs for Ordinal Outcome Data, One-Vs-All, with Radial Basis Function Kernel
 }

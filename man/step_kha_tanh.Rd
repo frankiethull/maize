@@ -14,7 +14,7 @@ step_kha_tanh(
   columns = NULL,
   scale_factor = 0.2,
   learn_rate = 0.005,
-  threshold = 1e-04,
+  threshold = 1e-06,
   stop_iter = 100,
   prefix = "kha",
   keep_original_cols = FALSE,
@@ -79,6 +79,8 @@ kernel basis expansion.
 }
 \seealso{
 Other multivariate transformation steps: 
+\code{\link{step_kfa_laplace}()},
+\code{\link{step_kfm_nystrom}()},
 \code{\link{step_kha_laplace}()},
 \code{\link{step_kpca_laplace}()},
 \code{\link{step_kpca_tanh}()}

@@ -79,6 +79,8 @@ kernel basis expansion.
 }
 \seealso{
 Other multivariate transformation steps: 
+\code{\link{step_kfa_laplace}()},
+\code{\link{step_kfm_nystrom}()},
 \code{\link{step_kha_tanh}()},
 \code{\link{step_kpca_laplace}()},
 \code{\link{step_kpca_tanh}()}
