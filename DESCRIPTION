@@ -1,6 +1,6 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.2.9005
+Version: 0.0.2.9006
 Authors@R: c(
     person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
@@ -37,5 +37,6 @@ Suggests:
     workflows,
     kernlab,
     ggplot2,
-    rmarkdown
+    rmarkdown,
+    tidyr
 VignetteBuilder: quarto, knitr
