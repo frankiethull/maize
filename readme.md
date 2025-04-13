@@ -24,7 +24,7 @@ steps for {recipes}:
 SVMs with Specialty Kernels. Contains additional regression and
 classification techniques such as LS-SVMs.
 
-<div id="mhylzsadtk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rfcfytmvhq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {kernlab} bindings🌽 |  |  |  |
@@ -54,7 +54,7 @@ classification techniques such as LS-SVMs.
 Multi-Instance Learners with SVMs. In particular, MIL with ordinal
 outcomes using One-vs-All.
 
-<div id="swbdvynywq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="seiurtpvrv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {mildsvm} bindings🌽 |                 |                      |                |
@@ -69,7 +69,7 @@ outcomes using One-vs-All.
 Bagging and Boosting weak learners via Random Under Sampling for binary
 classification.
 
-<div id="yxutquclat" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vznscddjus" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {ebmc} bindings🌽 |                       |             |                       |
@@ -85,7 +85,7 @@ classification.
 
 Steps for feature engineering data via kernel related methods.
 
-<div id="saekabepkk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="yrkttmflfl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | pre-processors🌽 |  |  |  |
@@ -105,7 +105,7 @@ Steps for feature engineering data via kernel related methods.
 Point calibration and conformal quantile regression with SVMs (QRSVM)
 for prediction intervals.
 
-<div id="unrpircuxk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bphvtauxfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | post-processors🌽 |  |  |  |
