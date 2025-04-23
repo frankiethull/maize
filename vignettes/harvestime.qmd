@@ -37,7 +37,7 @@ Within this implementation, both `autoARIMA` and `ARIMA` models are both support
 m750 <- m4_monthly |> dplyr::filter(id == "M750")
 
 m750 |>
-  plot_time_series(date, value)
+  plot_time_series(date, value, .interactive = FALSE)
 ```
 
 Splitting our data and fitting two models, a regular AutoARIMA, and the AutoARIMA  + SVM Laplace Errors.
@@ -98,21 +98,20 @@ calibration_tbl |>
     )
 ```
 
-
 #### Recursive SVMs
 
 Recursive SVMs are a bit different than the ARIMA method mentioned above. This framework does not depend on a traditional statistical method such as ARIMA, but revolves around lagged features of the outcome variable as a predictor. This deviates from the `parsnip` base models and leans towards `modeltime`. In `maize`, the goal is to have a simple lagged interface for SVMs, not typically supported elsewhere.
 
-This autoregressive machine learning technique can be read about more in the {modeltime} documentation [here](https://business-science.github.io/modeltime/articles/recursive-forecasting.html). *Note there are many methods for lagged & rolling transformations, maize currently supports a simplistic AR transformation. Time-series ML transformers can be extended, feel free to submit an issue or PR for more!*
+This autoregressive machine learning technique can be read about more in the {modeltime} documentation [here](https://business-science.github.io/modeltime/articles/recursive-forecasting.html). *Note there are many methods for lagged & rolling transformations, below we will showcase a simple lag transformer. {maize} does not currently have recursive() bindings but showcases how to use maize with modeltime's recursive() below!*
 
 
 ```{r}
  # splits 
 splits   <- rsample::initial_time_split(m750, prop = 0.9)
-training <- rsample::training(splits) |> dplyr::group_by(id)
-testing  <- rsample::testing(splits)  |> dplyr::group_by(id)
+training <- rsample::training(splits) 
+testing  <- rsample::testing(splits)  
 
- # horizon and number of lags:
+# horizon and number of lags:
 horizon <- nrow(testing)
 
 lag_transformer <- function(data){
@@ -120,108 +119,18 @@ lag_transformer <- function(data){
     timetk::tk_augment_lags(value, .lags = 1:horizon)
 }
 
-
-# recursive svm:
-model_fit_recursive_svm <- recursive_svm_laplace(
-    cost             = 10,
-    margin           = .1,
-    laplace_sigma    = .2,
-    forecast_horizon = horizon
-     ) |>
-    set_engine(engine = "recursive_svm_laplace") |>
-    fit(value ~ .
-   + lubridate::month(date, label = TRUE)
-  + as.numeric(date)
-    - date, data = training)
-
-#model_fit_recursive_svm |> str()
-
-#modeltime:::predict_recursive_model_fit(model_fit_recursive_svm$fit$models$model_1, future_data)
-modeltime:::predict.recursive(model_fit_recursive_svm$fit$models$model_1, future_data)
-
-predict_recursive_svm_model_fit(model_fit_recursive_svm$fit$models$model_1, future_data)
-
-predict_recursive_svm_model_fit(model_fit_recursive_svm, future_data)
-
-```
-
-```{r}
-predict(model_fit_recursive_svm, testing |> lag_transformer()) |> head()
-
-f <- model_fit_recursive_svm$fit$models$model_2[[1]]
-testing_2 <- 
-testing |> lag_transformer()
-
-predict(model_fit_recursive_svm, testing_2)
-
-
-# predict(model_fit_recursive_svm, model_fit_recursive_svm$fit$extras$future) |> head()
- predict(model_fit_recursive_svm$fit$models$model_1, 
-         new_data = model_fit_recursive_svm$fit$extras$future |> dplyr::group_by(id = as.factor("M750")))
- 
- 
-#  tbl <- modeltime_table(model_fit_recursive_svm$fit$models$model_1)
-# modeltime_forecast(
-#   tbl, 
-#   new_data = model_fit_recursive_svm$fit$extras$future |> dplyr::mutate(id = as.factor("M750")) |> dplyr::group_by(id))
-# )
-
-tbl <- modeltime_table(model_fit_recursive_svm)
-
-modeltime_forecast(
-  tbl,
-  new_data = future_data |> dplyr::group_by(id)
-)
-
 ```
 
 
-
 ```{r}
-
-model_tbl <- modeltime_table(
-  model_fit_recursive_svm
-)
-
-model_tbl |>
-  # Forecast using future data
-  modeltime_forecast(
-    new_data    = testing,
-    actual_data = rbind(training, testing)
-  ) |>
-  # Visualize the forecast
-  plot_modeltime_forecast(
-    .interactive        = FALSE,
-    .conf_interval_show = FALSE
-  )
-
-
-# predict(model_fit_recursive_svm, testing)
-```
-
-
-
-
-
-
-```{r}
-
-FORECAST_HORIZON <- nrow(testing)
 
 extended <- m750 |>
   dplyr::group_by(id) |>
   timetk::future_frame(
-    .length_out = FORECAST_HORIZON,
+    .length_out = horizon,
     .bind_data  = TRUE
   )
 
-
-lag_transformer <- function(data){
-  data |>
-    timetk::tk_augment_lags(value, .lags = 1:FORECAST_HORIZON)
-}
-
-####################### We need to bundle this ############################
 m4_lags <- extended |>
   lag_transformer()
 
@@ -236,18 +145,18 @@ model_fit_recursive_svm_laplace <- svm_laplace(
   cost = 10,
   margin = .1,
   laplace_sigma = .2
-) %>%
-  set_engine("kernlab") %>%
+) |>
+  set_engine("kernlab") |>
   fit(
     value ~ .
     + lubridate::month(date, label = TRUE)
     + as.numeric(date)
     - date,
     data = train_data
-  ) %>%
+  ) |>
   modeltime::recursive(
     transform  = lag_transformer,
-    train_tail = tail(train_data, FORECAST_HORIZON)
+    train_tail = tail(train_data, horizon)
   )
   
 model_tbl <- modeltime_table(
@@ -261,7 +170,7 @@ model_tbl |>
   modeltime_forecast(
     new_data    = future_data,
     actual_data = m750
-  ) %>%
+  ) |>
 
   # Visualize the forecast
   plot_modeltime_forecast(
@@ -270,82 +179,3 @@ model_tbl |>
   )
 
 ```
-
-
-
-
-### ID SANDBOX
-
-
-
-
-```{r}
-
-FORECAST_HORIZON <- nrow(testing)
-
-extended <- m750 |>
-#  dplyr::group_by(id) |>
-  timetk::future_frame(
-    .length_out = FORECAST_HORIZON,
-    .bind_data  = TRUE
-  )
-
-
-lag_transformer <- function(data){
-  data |>
-    timetk::tk_augment_lags(value, .lags = 1:FORECAST_HORIZON)
-}
-
-####################### We need to bundle this ############################
-m4_lags <- extended |>
-  lag_transformer()
-
-train_data <- m4_lags |>
-  tidyr::drop_na()
-
-future_data <- m4_lags |>
-  dplyr::filter(is.na(value))
-
-
-#train_data <- train_data |> dplyr::group_by(id = as.factor("i"))
-model_fit_recursive_svm_laplace <- svm_laplace(
-  mode = "regression",
-  cost = 10,
-  margin = .1,
-  laplace_sigma = .2
-) %>%
-  set_engine("kernlab") %>%
-  fit(
-    value ~ .
-    + lubridate::month(date, label = TRUE)
-    + as.numeric(date)
-    - date,
-    data = train_data
-  ) %>%
-  modeltime::recursive(
-    transform  = lag_transformer,
-    train_tail = tail(train_data, FORECAST_HORIZON)
-  )
-
-model_tbl <- modeltime_table(
-  model_fit_recursive_svm_laplace
-)
-
-model_fit_recursive_svm_laplace$fit
-
-model_tbl |>
-
-  # Forecast using future data
-  modeltime_forecast(
-    new_data    = future_data |> dplyr::group_by(id) ,
-    actual_data = m750
-  ) %>%
-
-  # Visualize the forecast
-  plot_modeltime_forecast(
-    .interactive        = FALSE,
-    .conf_interval_show = FALSE
-  )
-
-```
-
