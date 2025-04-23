@@ -40,4 +40,10 @@
   # multi-instance SVMs
   make_misvm_orova_rbf()
 
+# modeltime engines ----
+
+  # arima-svms
+  make_arima_svm_laplace()
+  #make_recursive_svm_laplace() # issue with xregs
+
 }
