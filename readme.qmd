@@ -51,6 +51,14 @@ mild_models <- data.frame(
   mode   = c("classification")
 )
 
+# modeltime bindings --
+modeltime_models <- data.frame(
+  extension = "{modeltime}",
+  maize     = c("arima_svm_laplace"),
+  engine    = c("forecast::Arima + maize::svm_laplace"),
+  mode      = c("regression")
+)
+
 # recipes bindings --
 maize_recipes <- data.frame(
   extension = "{recipes}",
@@ -75,7 +83,7 @@ maize_probably <- data.frame(
 
 ```
 
-### `engines` 
+### **engines**
 
 #### {kernlab} 
 
@@ -110,7 +118,7 @@ ebmc_models |>
   gt::as_raw_html()
 ```
 
-### `recipes`
+### **recipes**
 
 Steps for feature engineering data via kernel related methods. 
 ```{r}
@@ -121,7 +129,7 @@ maize_recipes |>
   gt::as_raw_html()
 ```
 
-### `probably`
+### **probably**
 
 Point calibration and conformal quantile regression with SVMs (QRSVM) for prediction intervals. 
 ```{r}
@@ -132,3 +140,13 @@ maize_probably |>
   gt::as_raw_html()
 ```
 
+### **modeltime**
+
+A special implementation of SVMs for time series regression. ARIMA & AutoARIMA with SVM Errors are registered in maize. The *harvestime* vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
+```{r}
+#| echo: false
+modeltime_models |>
+  gt::gt() |> 
+  gt::tab_header(title = paste0("{modeltime} bindings", emo::ji("corn"))) |>
+  gt::as_raw_html()
+```

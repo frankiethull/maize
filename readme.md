@@ -17,14 +17,14 @@ packages.
 polynomial. {maize} extends to further kernels, other engines, and adds
 steps for {recipes}:
 
-### `engines`
+### **engines**
 
 #### {kernlab}
 
 SVMs with Specialty Kernels. Contains additional regression and
 classification techniques such as LS-SVMs.
 
-<div id="rfcfytmvhq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="timokpnxmr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {kernlab} bindings🌽 |  |  |  |
@@ -54,7 +54,7 @@ classification techniques such as LS-SVMs.
 Multi-Instance Learners with SVMs. In particular, MIL with ordinal
 outcomes using One-vs-All.
 
-<div id="seiurtpvrv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="latecnputu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {mildsvm} bindings🌽 |                 |                      |                |
@@ -69,7 +69,7 @@ outcomes using One-vs-All.
 Bagging and Boosting weak learners via Random Under Sampling for binary
 classification.
 
-<div id="vznscddjus" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="wamctavohx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {ebmc} bindings🌽 |                       |             |                       |
@@ -81,11 +81,11 @@ classification.
 
 </div>
 
-### `recipes`
+### **recipes**
 
 Steps for feature engineering data via kernel related methods.
 
-<div id="yrkttmflfl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xjotckgnoj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | pre-processors🌽 |  |  |  |
@@ -100,12 +100,12 @@ Steps for feature engineering data via kernel related methods.
 
 </div>
 
-### `probably`
+### **probably**
 
 Point calibration and conformal quantile regression with SVMs (QRSVM)
 for prediction intervals.
 
-<div id="bphvtauxfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rotsqjredd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | post-processors🌽 |  |  |  |
@@ -113,5 +113,21 @@ for prediction intervals.
 | extension | maize | engine | mode |
 | {probably} | int_conformal_quantile_svm | qrsvm::qrsvm | prediction intervals |
 | {probably} | cal_estimate_svm | kernlab::ksvm | calibrator |
+
+</div>
+
+### **modeltime**
+
+A special implementation of SVMs for time series regression. ARIMA &
+AutoARIMA with SVM Errors are registered in maize. The *harvestime*
+vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
+
+<div id="eimeorqmpd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| {modeltime} bindings🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {modeltime} | arima_svm_laplace | forecast::Arima + maize::svm_laplace | regression |
 
 </div>

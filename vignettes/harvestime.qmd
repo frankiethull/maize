@@ -27,7 +27,7 @@ library(maize)
 
 #### ARIMA + SVM Errors
 
-Based on the notorious **"Boosted" ARIMA** implementation in time series machine learning. Maize swaps the XGBoost algorithm with an SVM with Laplacian Kernel.   
+Based on the notorious **"Boosted" ARIMA** implementation in time series machine learning. maize swaps the XGBoost algorithm with an SVM with Laplacian Kernel.   
     
 Within this implementation, both `autoARIMA` and `ARIMA` models are both supported, with or without external regressors. This framework leverages two model fits! First, an ARIMA model to fit a time series regression for the outcome variable. Next, an SVM regression is fit on the model residuals. 
 
