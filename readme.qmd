@@ -83,7 +83,7 @@ maize_probably <- data.frame(
 
 ```
 
-### **engines**
+### engines
 
 #### {kernlab} 
 
@@ -118,7 +118,7 @@ ebmc_models |>
   gt::as_raw_html()
 ```
 
-### **recipes**
+### recipes
 
 Steps for feature engineering data via kernel related methods. 
 ```{r}
@@ -129,7 +129,7 @@ maize_recipes |>
   gt::as_raw_html()
 ```
 
-### **probably**
+### probably
 
 Point calibration and conformal quantile regression with SVMs (QRSVM) for prediction intervals. 
 ```{r}
@@ -140,7 +140,7 @@ maize_probably |>
   gt::as_raw_html()
 ```
 
-### **modeltime**
+### modeltime
 
 A special implementation of SVMs for time series regression. ARIMA & AutoARIMA with SVM Errors are registered in maize. The *harvestime* vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
 ```{r}
