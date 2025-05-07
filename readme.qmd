@@ -83,7 +83,16 @@ maize_probably <- data.frame(
 
 ```
 
-### engines
+## Installation
+
+You can install the development version of maize from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("frankiethull/maize")
+```
+
+## engines
 
 #### {kernlab} 
 
