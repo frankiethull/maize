@@ -1,0 +1,135 @@
+---
+title: "glass-gem"
+vignette: >
+  %\VignetteIndexEntry{glass-gem}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+library(applicable)
+library(ggplot2)
+library(kernlab)
+library(maize)
+library(dplyr)
+
+# heldout novel/anomaly type 
+corn_glass_gem <- data.frame(
+  height      = c(85, 75, 95),
+  kernel_size = c(4., 3., 3),
+  type        = c("Rainbow")
+)
+
+set.seed(31415)
+corn_train <- corn_data |> dplyr::sample_frac(.90)
+corn_test  <- corn_data |> dplyr::anti_join(corn_train)
+
+# add the novel type to the test data
+corn_test <- corn_test |> dplyr::bind_rows(corn_glass_gem)
+```
+
+
+# {maize} for novelty detection  
+
+An extension of {applicable}:  
+*"There are times when a model’s prediction should be taken with some skepticism. For example, if a new data point is substantially different from the training set, its predicted value may be suspect. In chemistry, it is not uncommon to create an “applicability domain” model that measures the amount of potential extrapolation new samples have from the training set. applicable contains different methods to measure how much a new data point is an extrapolation from the original data (if at all)."*   
+
+Within {applicable}, there lies an isolation forest technique for anomaly detection. SVMs are also known for novelty detection and outlier selection. 
+
+
+Below both the isolation forest and one-SVC methods are shown. Note that the corn testing data has a new type added to it. "Rainbow" corn has been added and differs from the other three corn types. Below will showcase how both methods pick up on the new type.
+
+#### isolation forest score method
+
+The isolation forest method is based on isotree and is the base code used for the SVM method shown in the next section.
+
+```{r}
+if_mod <- apd_isolation(corn_train |> dplyr::select(-type), ntrees = 10, nthreads = 1)
+if_mod
+
+isolation_scores <- score(if_mod, corn_test |> dplyr::select(-type))
+head(isolation_scores)
+```
+
+
+```{r}
+corn_test |>
+  bind_cols(isolation_scores) |> 
+  ggplot() + 
+  geom_point(aes(x = kernel_size, y = height, color = score, shape = type)) +
+  theme_minimal() +
+  scale_color_viridis_c(option = "B", end = .8) +
+  labs(title = "isolation forest method")
+```
+
+#### SVM novelty detection score method
+
+This implementation is based on one-class-svc (novelty) detection method found in kernlab. 
+
+```{r}
+
+svm_mod <- apd_svm_novel_detection(corn_train |> dplyr::select(-type), kernel = "rbfdot", nu = .1)
+svm_mod
+
+novel_scores <- score(svm_mod, corn_test |> dplyr::select(-type))
+head(novel_scores)
+```
+
+
+```{r}
+corn_test |>
+  bind_cols(novel_scores) |> 
+  ggplot() + 
+  geom_point(aes(x = kernel_size, y = height, color = score, shape = type)) +
+  theme_minimal() +
+  scale_color_viridis_c(option = "B", end = .8) +
+  labs(title = "SVM novelty detection method")
+```
+
+# {maize} for kernel canonical correlation analysis
+
+Based on the tidymodels' {corrr} package:
+*"corrr is a package for exploring correlations in R. It focuses on creating and working with data frames of correlations (instead of matrices) that can be easily explored via corrr functions or by leveraging tools like those in the tidyverse."*
+
+{maize} aims to do a similar approach but for kernlab's kcca function. This method is an non-linear extension of canonical correlation analysis and differs from CCA. Instead of finding linear combinations of variables that maximize correlation between two sets, KCCA maps data to a high-dimensional feature space using a kernel function and then applies CCA in that space.
+
+#### kernel canonical correlation analysis
+
+Kernel Canonical Correlation Analysis (KCCA) is a non-linear extension of CCA and will handle comparisons between two variables or datasets, (x, y). 
+
+The analysis workflow is shown below:
+
+```{r}
+corn_set_one <- corn_data |> dplyr::sample_frac(.50)
+corn_set_two <- corn_data |> dplyr::anti_join(corn_set_one)
+
+maize_kcca <- 
+  kcca_correlate(x = corn_set_one, 
+                 y = corn_set_two, 
+                 num_comp = 6)
+
+maize_kcca |>
+  str()
+```
+
+kernel canonical correlations:
+```{r}
+maize_kcca |>
+  dplyr::group_by(component) |>
+  dplyr::slice(1) |>
+  dplyr::select(component, canonical_correlation)
+```
+
+visualizing the feature space of the KCCA feature space:
+```{r}
+maize_kcca |> autoplot()
+```
+
