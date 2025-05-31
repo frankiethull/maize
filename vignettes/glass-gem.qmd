@@ -90,7 +90,7 @@ corn_test |>
   ggplot() + 
   geom_point(aes(x = kernel_size, y = height, color = score, shape = type)) +
   theme_minimal() +
-  scale_color_viridis_c(option = "B", end = .8) +
+  scale_color_viridis_c(option = "B", end = .8, direction = -1) +
   labs(title = "SVM novelty detection method")
 ```
 
