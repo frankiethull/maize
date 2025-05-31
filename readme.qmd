@@ -81,6 +81,22 @@ maize_probably <- data.frame(
   mode    = c("prediction intervals", "calibrator")
 )
 
+# applicable bindings --
+maize_applicable <- data.frame(
+  extension = "{applicable}",
+  maize     = "apd_svm_novel_detection",
+  engine    = "kernlab::ksvm",
+  mode      = "one-SVC novelty detection"
+)
+
+# corrr inspired --
+maize_corrr <- data.frame(
+  extension = "{corrr}",
+  maize     = "kcca_correlate",
+  engine    = "kernlab::kcca",
+  mode      = "kernel canonical correlation analysis"
+)
+
 ```
 
 ### engines
@@ -150,3 +166,30 @@ modeltime_models |>
   gt::tab_header(title = paste0("{modeltime} bindings", emo::ji("corn"))) |>
   gt::as_raw_html()
 ```
+
+
+### applicable
+
+One-Class SVMs for novelty detection
+```{r}
+#| echo: false
+maize_applicable |>
+  gt::gt() |> 
+  gt::tab_header(title = paste0("applicability", emo::ji("corn"))) |>
+  gt::as_raw_html()
+
+```
+
+
+### corrr
+
+Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel Canonical Correlation Analysis:
+```{r}
+#| echo: false
+maize_corrr |>
+  gt::gt() |> 
+  gt::tab_header(title = paste0("KCCA", emo::ji("corn"))) |>
+  gt::as_raw_html()
+
+```
+

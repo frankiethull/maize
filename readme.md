@@ -24,7 +24,7 @@ steps for {recipes}:
 SVMs with Specialty Kernels. Contains additional regression and
 classification techniques such as LS-SVMs.
 
-<div id="mysndnynnv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bazdmlooal" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {kernlab} bindings🌽 |  |  |  |
@@ -54,7 +54,7 @@ classification techniques such as LS-SVMs.
 Multi-Instance Learners with SVMs. In particular, MIL with ordinal
 outcomes using One-vs-All.
 
-<div id="erwbhtkjzz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ovnoxabwll" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {mildsvm} bindings🌽 |                 |                      |                |
@@ -69,7 +69,7 @@ outcomes using One-vs-All.
 Bagging and Boosting weak learners via Random Under Sampling for binary
 classification.
 
-<div id="ehdzvhfeph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="scvwyxvfjo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {ebmc} bindings🌽 |                       |             |                       |
@@ -85,7 +85,7 @@ classification.
 
 Steps for feature engineering data via kernel related methods.
 
-<div id="bzoxneknpl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="tzuhtoouym" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | pre-processors🌽 |  |  |  |
@@ -105,7 +105,7 @@ Steps for feature engineering data via kernel related methods.
 Point calibration and conformal quantile regression with SVMs (QRSVM)
 for prediction intervals.
 
-<div id="qdmgdulvms" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="izbrnkjmtv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | post-processors🌽 |  |  |  |
@@ -122,12 +122,41 @@ A special implementation of SVMs for time series regression. ARIMA &
 AutoARIMA with SVM Errors are registered in maize. The *harvestime*
 vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
 
-<div id="atopdklibz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="mafdnzjxad" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {modeltime} bindings🌽 |  |  |  |
 |:---|:---|:---|:---|
 | extension | maize | engine | mode |
 | {modeltime} | arima_svm_laplace | forecast::Arima + maize::svm_laplace | regression |
+
+</div>
+
+### applicable
+
+One-Class SVMs for novelty detection
+
+<div id="ulupbrtqnq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| applicability🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {applicable} | apd_svm_novel_detection | kernlab::ksvm | one-SVC novelty detection |
+
+</div>
+
+### corrr
+
+Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel
+Canonical Correlation Analysis:
+
+<div id="aulgxbakqw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| KCCA🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {corrr} | kcca_correlate | kernlab::kcca | kernel canonical correlation analysis |
 
 </div>
