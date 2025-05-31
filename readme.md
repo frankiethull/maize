@@ -141,3 +141,32 @@ vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
 | {modeltime} | arima_svm_laplace | forecast::Arima + maize::svm_laplace | regression |
 
 </div>
+
+### applicable
+
+One-Class SVMs for novelty detection
+
+<div id="ulupbrtqnq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| applicability🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {applicable} | apd_svm_novel_detection | kernlab::ksvm | one-SVC novelty detection |
+
+</div>
+
+### corrr
+
+Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel
+Canonical Correlation Analysis:
+
+<div id="aulgxbakqw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| KCCA🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {corrr} | kcca_correlate | kernlab::kcca | kernel canonical correlation analysis |
+
+</div>

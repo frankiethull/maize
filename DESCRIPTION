@@ -1,6 +1,6 @@
 Package: maize
 Title: Specialty Kernels for SVMs
-Version: 0.0.2.92
+Version: 0.0.2.94
 Authors@R: c(
     person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "ctb")
@@ -14,6 +14,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
+    applicable,
     parsnip,
     probably,
     recipes,
