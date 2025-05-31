@@ -7,7 +7,7 @@
 \alias{apd_svm_novel_detection.matrix}
 \alias{apd_svm_novel_detection.formula}
 \alias{apd_svm_novel_detection.recipe}
-\title{Fit an isolation forest to estimate an applicability domain.}
+\title{Fit an SVM novelty detection model to estimate an applicability domain.}
 \usage{
 apd_svm_novel_detection(x, ...)
 
@@ -25,8 +25,7 @@ apd_svm_novel_detection(x, ...)
 \item{x}{Depending on the context:
 \itemize{
 \item A \strong{data frame} of predictors.
-\item A \strong{matrix} of predictors (see the \code{categ_cols} argument of
-\code{\link[kernlab:ksvm]{kernlab::ksvm()}}).
+\item A \strong{matrix} of predictors.
 \item A \strong{recipe} specifying a set of preprocessing steps
 created from \code{\link[recipes:recipe]{recipes::recipe()}}.
 }}

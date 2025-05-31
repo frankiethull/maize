@@ -4,7 +4,7 @@
 \alias{score.apd_svm_novel_detection}
 \title{Predict from a \code{apd_svm_novel_detection}}
 \usage{
-score.apd_svm_novel_detection(object, new_data, type = "numeric", ...)
+\method{score}{apd_svm_novel_detection}(object, new_data, type = "numeric", ...)
 }
 \arguments{
 \item{object}{A \code{apd_svm_novel_detection} object.}
