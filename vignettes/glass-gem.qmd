@@ -16,8 +16,9 @@ knitr:
 #| warning: false
 
 options(repos = c(CRAN = "https://cloud.r-project.org"))
-install.packages("pak")
-pak::pak("tidymodels/applicable@develop")
+install.packages("devtools")
+devtools::install_github("tidymodels/applicable@develop")
+devtools::install_cran("isotree")
 
 library(applicable)
 library(ggplot2)

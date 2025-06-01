@@ -1,4 +1,4 @@
-3---
+---
 title: "two-class-post-processing"
 vignette: >
   %\VignetteIndexEntry{two-class-post-processing}
