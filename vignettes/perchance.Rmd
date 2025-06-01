@@ -143,12 +143,12 @@ The cal_estimate_svm method in {maize} represents a straightforward substitution
 
 
 ```{r}
-calibration_df <-  predict(svm_fit, corn_cal) |> cbind(corn_cal)
+calibration_df <-  predict(svm_fit, corn_cal) |> dplyr::bind_cols(corn_cal)
 
 
 # probably's implementation:
-lin_cal_fit <- calibration_df |>
-            probably::cal_estimate_linear(height, smooth = TRUE)
+lin_cal_fit <- calibration_df |> 
+            probably::cal_estimate_linear(truth = height, estimate = .pred, smooth = TRUE)
 
 # experimental svm calibration (vanilladot or polydot)
 svm_cal_fit <- calibration_df |>
