@@ -15,6 +15,10 @@ knitr:
 #| message: false
 #| warning: false
 
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("pak")
+pak::pak("tidymodels/applicable@develop")
+
 library(applicable)
 library(ggplot2)
 library(kernlab)
