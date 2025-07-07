@@ -10,6 +10,13 @@
 
 Bindings for SVMs and special kernels via kernlab, e1701, ebmc, and mildsvm extending the 'parsnip' package. Specifically related to kernels for support vector machines not available in parsnip. Package also includes interfaces for novel SVM preprocessors (recipes) and postprocessors (probably).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://frankiethull.github.io/maize/}
+}
+
+}
 \author{
 \strong{Maintainer}: Frank Hull \email{frankiethull@gmail.com}
 

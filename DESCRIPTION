@@ -42,3 +42,4 @@ Suggests:
     ggplot2,
     tidyr
 VignetteBuilder: quarto, knitr
+URL: https://frankiethull.github.io/maize/
