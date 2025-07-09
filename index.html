@@ -58,8 +58,465 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Bindings for SVMs and special kernels via kernlab, e1701, ebmc, and mildsvm extending the 'parsnip' package. Specifically related to kernels for support vector machines not available in parsnip. Package also includes interfaces for novel SVM preprocessors (recipes) and postprocessors (probably).
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="maize-package">{maize} package<a class="anchor" aria-label="anchor" href="#maize-package"></a>
+</h1>
+</div>
+</div>
+<div class="section level1">
+<h1 id="maize-">maize <a class="anchor" aria-label="anchor" href="#maize-"></a>
+</h1>
+<p>{maize} 🌽 is an extension library for kernels &amp; support vector machines in tidymodels! The package consists of additional kernel bindings that are not available in the {parsnip} or {recipes} package. Many of the kernels are ported from {kernlab}, additional kernels have been added directly to maize transposed from <a href="https://github.com/gmum/pykernels/blob/master/pykernels/regular.py" class="external-link">Python</a> and <a href="https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/" class="external-link">Julia</a> packages.</p>
+<p>{parnsip} has three kernels available: linear, radial basis function, &amp; polynomial. {maize} extends to further kernels, other engines, and adds steps for {recipes}:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of maize from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"frankiethull/maize"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="engines">engines<a class="anchor" aria-label="anchor" href="#engines"></a>
+</h2>
+<div class="section level4">
+<h4 id="kernlab">{kernlab}<a class="anchor" aria-label="anchor" href="#kernlab"></a>
+</h4>
+<p>SVMs with Specialty Kernels. Contains additional regression and classification techniques such as LS-SVMs.</p>
+<div id="ruwenuvium" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">{kernlab} bindings🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_laplace</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">svm_tanh</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_bessel</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">svm_anova_rbf</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_spline</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">svm_cossim</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_cauchy</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">svm_tanimoto</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_sorenson</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">svm_tstudent</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_fourier</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">svm_wavelet</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">regression &amp; classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">svm_string</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">lssvm_laplace</td>
+<td align="left">kernlab::lssvm</td>
+<td align="left">classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">rvm_laplace</td>
+<td align="left">kernlab::rvm</td>
+<td align="left">regression</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">kqr_laplace</td>
+<td align="left">kernlab::kqr</td>
+<td align="left">regression</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level4">
+<h4 id="mildsvm">{mildsvm}<a class="anchor" aria-label="anchor" href="#mildsvm"></a>
+</h4>
+<p>Multi-Instance Learners with SVMs. In particular, MIL with ordinal outcomes using One-vs-All.</p>
+<div id="qsfffbsqbn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="28%">
+<col width="22%">
+<col width="28%">
+<col width="20%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">{mildsvm} bindings🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">misvm_orova_rbf</td>
+<td align="left">mildsvm::misvm_orova</td>
+<td align="left">classification</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level4">
+<h4 id="ebmc">{ebmc}<a class="anchor" aria-label="anchor" href="#ebmc"></a>
+</h4>
+<p>Bagging and Boosting weak learners via Random Under Sampling for binary classification.</p>
+<div id="xfobgnkjan" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="24%">
+<col width="29%">
+<col width="16%">
+<col width="29%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">{ebmc} bindings🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">bag_svm_laplace</td>
+<td align="left">ebmc::ub</td>
+<td align="left">binary-classification</td>
+</tr>
+<tr class="odd">
+<td align="left">{parsnip}</td>
+<td align="left">rus_boost_svm_laplace</td>
+<td align="left">ebmc::rus</td>
+<td align="left">binary-classification</td>
+</tr>
+<tr class="even">
+<td align="left">{parsnip}</td>
+<td align="left">ada_boost_svm_laplace</td>
+<td align="left">ebmc::adam2</td>
+<td align="left">binary-classification</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level3">
+<h3 id="recipes">recipes<a class="anchor" aria-label="anchor" href="#recipes"></a>
+</h3>
+<p>Steps for feature engineering data via kernel related methods.</p>
+<div id="blghylbfqd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">pre-processors🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{recipes}</td>
+<td align="left">step_kpca_laplace</td>
+<td align="left">kernlab::kpca</td>
+<td align="left">transformation steps</td>
+</tr>
+<tr class="odd">
+<td align="left">{recipes}</td>
+<td align="left">step_kpca_tanh</td>
+<td align="left">kernlab::kpca</td>
+<td align="left">transformation steps</td>
+</tr>
+<tr class="even">
+<td align="left">{recipes}</td>
+<td align="left">step_kha_laplace</td>
+<td align="left">kernlab::kha</td>
+<td align="left">transformation steps</td>
+</tr>
+<tr class="odd">
+<td align="left">{recipes}</td>
+<td align="left">step_kha_tanh</td>
+<td align="left">kernlab::kha</td>
+<td align="left">transformation steps</td>
+</tr>
+<tr class="even">
+<td align="left">{recipes}</td>
+<td align="left">step_kfa_laplace</td>
+<td align="left">kernlab::kfa</td>
+<td align="left">transformation steps</td>
+</tr>
+<tr class="odd">
+<td align="left">{recipes}</td>
+<td align="left">step_kfm_nystrom</td>
+<td align="left">mildsvm::kfm_nystrom</td>
+<td align="left">transformation steps</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level3">
+<h3 id="probably">probably<a class="anchor" aria-label="anchor" href="#probably"></a>
+</h3>
+<p>Point calibration and conformal quantile regression with SVMs (QRSVM) for prediction intervals.</p>
+<div id="lhvfdvruna" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">post-processors🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{probably}</td>
+<td align="left">int_conformal_quantile_svm</td>
+<td align="left">qrsvm::qrsvm</td>
+<td align="left">prediction intervals</td>
+</tr>
+<tr class="odd">
+<td align="left">{probably}</td>
+<td align="left">cal_estimate_svm</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">calibrator</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level3">
+<h3 id="modeltime">modeltime<a class="anchor" aria-label="anchor" href="#modeltime"></a>
+</h3>
+<p>A special implementation of SVMs for time series regression. ARIMA &amp; AutoARIMA with SVM Errors are registered in maize. The <em>harvestime</em> vignette showcases how-to-use ARIMA-SVMs &amp; Recursive SVMs.</p>
+<div id="oaxkeneluc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">{modeltime} bindings🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{modeltime}</td>
+<td align="left">arima_svm_laplace</td>
+<td align="left">forecast::Arima + maize::svm_laplace</td>
+<td align="left">regression</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level3">
+<h3 id="applicable">applicable<a class="anchor" aria-label="anchor" href="#applicable"></a>
+</h3>
+<p>One-Class SVMs for novelty detection</p>
+<div id="ulupbrtqnq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">applicability🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{applicable}</td>
+<td align="left">apd_svm_novel_detection</td>
+<td align="left">kernlab::ksvm</td>
+<td align="left">one-SVC novelty detection</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level3">
+<h3 id="corrr">corrr<a class="anchor" aria-label="anchor" href="#corrr"></a>
+</h3>
+<p>Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel Canonical Correlation Analysis:</p>
+<div id="aulgxbakqw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>
+</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">KCCA🌽</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">extension</td>
+<td align="left">maize</td>
+<td align="left">engine</td>
+<td align="left">mode</td>
+</tr>
+<tr class="even">
+<td align="left">{corrr}</td>
+<td align="left">kcca_correlate</td>
+<td align="left">kernlab::kcca</td>
+<td align="left">kernel canonical correlation analysis</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
