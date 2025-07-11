@@ -1,4 +1,6 @@
 url: https://frankiethull.github.io/maize/
 template:
-  bootstrap: 5
+  bslib:
+    version: 5
+    brand: _brand.yml
 
