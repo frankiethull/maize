@@ -1,6 +1,6 @@
 # ask claude-3-5-sonnet-20241022 for desert sunset palette against purple mtn sky
 color:
-  palette: 
+  palette:
     sunset-orange: "#FF7E3D"    # Vibrant sunset orange
     sand-orange: "#E8A87C"      # Softer, sandy orange
     terra-cotta: "#C75D4B"      # Earthy, desert rock orange
@@ -19,20 +19,20 @@ color:
   warning: dusk-coral
   danger: night-purple
 
-logo: 
+logo:
   medium: profile.png
 
 # manually iterating
 typography:
   fonts:
-    - family: Cedarville Cursive  # (Playwrite GB S) is readable; cedarville is cool but harder to read (it's ok i like my blog encrypted)
-      source: google    
-    - family: JetBrains Mono
-      source: google     
-    - family: Major Mono Display
+    - family: Space Mono
       source: google
-  base: Cedarville Cursive
+    - family: JetBrains Mono
+      source: google
+    - family: Kode Mono
+      source: google
+  base: Space Mono
   headings:
-    family: Major Mono Display
+    family: Kode Mono
     color: terra-cotta
   monospace: JetBrains Mono
