@@ -8,10 +8,10 @@ knitr:
 
 # maize <img src="man/figures/logo.png" align="right" height="139" alt="" />
     
-{maize} `r emo::ji("corn")` is an extension library for kernels & support vector machines in tidymodels! The package consists of additional kernel bindings that are not available in the {parsnip} or {recipes} package. Many of the kernels are ported from {kernlab}, additional kernels have been added directly to maize transposed from [Python](https://github.com/gmum/pykernels/blob/master/pykernels/regular.py) and [Julia](https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/) packages. 
+{maize} `r emo::ji("corn")` is an extension library for kernels & support vector machines adding onto the tidymodels ecosystem. Many of the kernels are ported from {kernlab}, additional kernels have been added directly to maize transposed from [Python](https://github.com/gmum/pykernels/blob/master/pykernels/regular.py) and [Julia](https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/) packages. 
 
 
-{parnsip} has three kernels available: linear, radial basis function, & polynomial. {maize} extends to further kernels, other engines, and adds steps for {recipes}: 
+The {parsnip} package offers three SVM kernel options: linear, radial basis function, and polynomial. Building on this, {maize} introduces additional kernels and supports a wider range of SVM engines. Beyond kernel & SVM expansion to {parsnip}, {maize} also adds SVM capabilities across other tidymodels libraries. These additions include extra pre-processing steps for {recipes}, one-class novelty detection for {applicable}, calibration and conformal inference tools for {probably}, and a {corrr}-like interface for kernel canonical correlation analysis.
 
 ```{r}
 #| echo: false

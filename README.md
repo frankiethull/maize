@@ -4,18 +4,22 @@
 # maize <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 {maize} 🌽 is an extension library for kernels & support vector machines
-in tidymodels! The package consists of additional kernel bindings that
-are not available in the {parsnip} or {recipes} package. Many of the
-kernels are ported from {kernlab}, additional kernels have been added
-directly to maize transposed from
+adding onto the tidymodels ecosystem. Many of the kernels are ported
+from {kernlab}, additional kernels have been added directly to maize
+transposed from
 [Python](https://github.com/gmum/pykernels/blob/master/pykernels/regular.py)
 and
 [Julia](https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/)
 packages.
 
-{parnsip} has three kernels available: linear, radial basis function, &
-polynomial. {maize} extends to further kernels, other engines, and adds
-steps for {recipes}:
+The {parsnip} package offers three SVM kernel options: linear, radial
+basis function, and polynomial. Building on this, {maize} introduces
+additional kernels and supports a wider range of SVM engines. Beyond
+kernel & SVM expansion to {parsnip}, {maize} also adds SVM capabilities
+across other tidymodels libraries. These additions include extra
+pre-processing steps for {recipes}, one-class novelty detection for
+{applicable}, calibration and conformal inference tools for {probably},
+and a {corrr}-like interface for kernel canonical correlation analysis.
 
 ## Installation
 
@@ -34,7 +38,7 @@ pak::pak("frankiethull/maize")
 SVMs with Specialty Kernels. Contains additional regression and
 classification techniques such as LS-SVMs.
 
-<div id="ruwenuvium" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="fytoutjbgi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {kernlab} bindings🌽 |  |  |  |
@@ -64,7 +68,7 @@ classification techniques such as LS-SVMs.
 Multi-Instance Learners with SVMs. In particular, MIL with ordinal
 outcomes using One-vs-All.
 
-<div id="qsfffbsqbn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vhntduvkuv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {mildsvm} bindings🌽 |                 |                      |                |
@@ -79,7 +83,7 @@ outcomes using One-vs-All.
 Bagging and Boosting weak learners via Random Under Sampling for binary
 classification.
 
-<div id="xfobgnkjan" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bbueuxzfqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {ebmc} bindings🌽 |                       |             |                       |
@@ -95,7 +99,7 @@ classification.
 
 Steps for feature engineering data via kernel related methods.
 
-<div id="blghylbfqd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="chbdubgdiy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | pre-processors🌽 |  |  |  |
@@ -115,7 +119,7 @@ Steps for feature engineering data via kernel related methods.
 Point calibration and conformal quantile regression with SVMs (QRSVM)
 for prediction intervals.
 
-<div id="lhvfdvruna" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uzfygnrepk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | post-processors🌽 |  |  |  |
@@ -132,7 +136,7 @@ A special implementation of SVMs for time series regression. ARIMA &
 AutoARIMA with SVM Errors are registered in maize. The *harvestime*
 vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
 
-<div id="oaxkeneluc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="kdaxuuhyzx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | {modeltime} bindings🌽 |  |  |  |
@@ -146,7 +150,7 @@ vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
 
 One-Class SVMs for novelty detection
 
-<div id="ulupbrtqnq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ttkrjriqsw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | applicability🌽 |  |  |  |
@@ -161,7 +165,7 @@ One-Class SVMs for novelty detection
 Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel
 Canonical Correlation Analysis:
 
-<div id="aulgxbakqw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="tsyeflobat" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  
 
 | KCCA🌽 |  |  |  |
