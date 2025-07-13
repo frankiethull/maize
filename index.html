@@ -75,8 +75,8 @@
 <div class="section level1">
 <h1 id="maize-">maize <a class="anchor" aria-label="anchor" href="#maize-"></a>
 </h1>
-<p>{maize} 🌽 is an extension library for kernels &amp; support vector machines in tidymodels! The package consists of additional kernel bindings that are not available in the {parsnip} or {recipes} package. Many of the kernels are ported from {kernlab}, additional kernels have been added directly to maize transposed from <a href="https://github.com/gmum/pykernels/blob/master/pykernels/regular.py" class="external-link">Python</a> and <a href="https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/" class="external-link">Julia</a> packages.</p>
-<p>{parnsip} has three kernels available: linear, radial basis function, &amp; polynomial. {maize} extends to further kernels, other engines, and adds steps for {recipes}:</p>
+<p>{maize} 🌽 is an extension library for kernels &amp; support vector machines adding onto the tidymodels ecosystem. Many of the kernels are ported from {kernlab}, additional kernels have been added directly to maize transposed from <a href="https://github.com/gmum/pykernels/blob/master/pykernels/regular.py" class="external-link">Python</a> and <a href="https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/" class="external-link">Julia</a> packages.</p>
+<p>The {parsnip} package offers three SVM kernel options: linear, radial basis function, and polynomial. Building on this, {maize} introduces additional kernels and supports a wider range of SVM engines. Beyond kernel &amp; SVM expansion to {parsnip}, {maize} also adds SVM capabilities across other tidymodels libraries. These additions include extra pre-processing steps for {recipes}, one-class novelty detection for {applicable}, calibration and conformal inference tools for {probably}, and a {corrr}-like interface for kernel canonical correlation analysis.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -92,7 +92,7 @@
 <h4 id="kernlab">{kernlab}<a class="anchor" aria-label="anchor" href="#kernlab"></a>
 </h4>
 <p>SVMs with Specialty Kernels. Contains additional regression and classification techniques such as LS-SVMs.</p>
-<div id="ruwenuvium" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="fytoutjbgi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -219,7 +219,7 @@
 <h4 id="mildsvm">{mildsvm}<a class="anchor" aria-label="anchor" href="#mildsvm"></a>
 </h4>
 <p>Multi-Instance Learners with SVMs. In particular, MIL with ordinal outcomes using One-vs-All.</p>
-<div id="qsfffbsqbn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="vhntduvkuv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -256,7 +256,7 @@
 <h4 id="ebmc">{ebmc}<a class="anchor" aria-label="anchor" href="#ebmc"></a>
 </h4>
 <p>Bagging and Boosting weak learners via Random Under Sampling for binary classification.</p>
-<div id="xfobgnkjan" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bbueuxzfqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -305,7 +305,7 @@
 <h3 id="recipes">recipes<a class="anchor" aria-label="anchor" href="#recipes"></a>
 </h3>
 <p>Steps for feature engineering data via kernel related methods.</p>
-<div id="blghylbfqd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="chbdubgdiy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -372,7 +372,7 @@
 <h3 id="probably">probably<a class="anchor" aria-label="anchor" href="#probably"></a>
 </h3>
 <p>Point calibration and conformal quantile regression with SVMs (QRSVM) for prediction intervals.</p>
-<div id="lhvfdvruna" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uzfygnrepk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -415,7 +415,7 @@
 <h3 id="modeltime">modeltime<a class="anchor" aria-label="anchor" href="#modeltime"></a>
 </h3>
 <p>A special implementation of SVMs for time series regression. ARIMA &amp; AutoARIMA with SVM Errors are registered in maize. The <em>harvestime</em> vignette showcases how-to-use ARIMA-SVMs &amp; Recursive SVMs.</p>
-<div id="oaxkeneluc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="kdaxuuhyzx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -452,7 +452,7 @@
 <h3 id="applicable">applicable<a class="anchor" aria-label="anchor" href="#applicable"></a>
 </h3>
 <p>One-Class SVMs for novelty detection</p>
-<div id="ulupbrtqnq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ttkrjriqsw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
@@ -489,7 +489,7 @@
 <h3 id="corrr">corrr<a class="anchor" aria-label="anchor" href="#corrr"></a>
 </h3>
 <p>Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel Canonical Correlation Analysis:</p>
-<div id="aulgxbakqw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="tsyeflobat" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <p>
 </p>
 <table class="table">
