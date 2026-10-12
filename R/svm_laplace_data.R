@@ -35,7 +35,7 @@ make_svm_laplace <- function() {
     eng = "kernlab",
     parsnip = "laplace_sigma",
     original = "sigma",
-    func = list(pkg = "dials", fun = "svm_margin"),
+    func = list(pkg = "dials", fun = "rbf_sigma"),
     has_submodel = FALSE
   )
 
