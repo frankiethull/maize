@@ -26,7 +26,7 @@ make_svm_bessel <- function() {
     eng = "kernlab",
     parsnip = "degree",
     original = "degree",
-    func = list(pkg = "dials", fun = "degree"),
+    func = list(pkg = "dials", fun = "degree_int"),
     has_submodel = FALSE
   )
 
@@ -35,7 +35,7 @@ make_svm_bessel <- function() {
     eng = "kernlab",
     parsnip = "order",
     original = "order",
-    func = list(pkg = "dials", fun = "order"),
+    func = list(pkg = "maize", fun = "bessel_order"),
     has_submodel = FALSE
   )
 
@@ -44,7 +44,7 @@ make_svm_bessel <- function() {
     eng = "kernlab",
     parsnip = "bessel_sigma",
     original = "sigma",
-    func = list(pkg = "dials", fun = "bessel_sigma"),
+    func = list(pkg = "dials", fun = "rbf_sigma"),
     has_submodel = FALSE
   )
 
