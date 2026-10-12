@@ -35,7 +35,7 @@ make_svm_tstudent <- function() {
     eng = "kernlab",
     parsnip = "degree",
     original = "degree",
-    func = list(pkg = "dials", fun = "degree"),
+    func = list(pkg = "dials", fun = "degree_int"),
     has_submodel = FALSE
   )
 
