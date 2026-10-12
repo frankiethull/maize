@@ -25,7 +25,7 @@ make_svm_string <- function() {
     eng = "kernlab",
     parsnip = "length",
     original = "length",
-    func = list(pkg = "dials", fun = "length"),
+    func = list(pkg = "maize", fun = "string_length"),
     has_submodel = FALSE
   )
 
@@ -34,7 +34,7 @@ make_svm_string <- function() {
     eng = "kernlab",
     parsnip = "lambda",
     original = "lambda",
-    func = list(pkg = "dials", fun = "lambda"),
+    func = list(pkg = "maize", fun = "string_lambda"),
     has_submodel = FALSE
   )
 
@@ -53,7 +53,7 @@ make_svm_string <- function() {
     eng = "kernlab",
     parsnip = "normalized",
     original = "normalized",
-    func = list(pkg = "dials", fun = "normalized"),
+    func = list(pkg = "maize", fun = "string_normalized"),
     has_submodel = FALSE
   )
 
