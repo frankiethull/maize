@@ -39,6 +39,8 @@ Suggests:
     workflows,
     kernlab,
     ggplot2,
+    dplyr,
+    tailor,
     tidyr
 VignetteBuilder: quarto, knitr
 URL: https://frankiethull.github.io/maize/
