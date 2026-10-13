@@ -22,7 +22,9 @@ Imports:
     tibble,
     vctrs
 Remotes: 
-    frankiethull/qrsvm
+    frankiethull/qrsvm,
+    tidymodels/workflows,
+    tidymodels/tailor
 Depends: 
     R (>= 4.4.1.0)
 LazyData: true
@@ -39,9 +41,6 @@ Suggests:
     workflows,
     kernlab,
     ggplot2,
-    dplyr,
-    tailor,
     tidyr
 VignetteBuilder: quarto, knitr
 URL: https://frankiethull.github.io/maize/
-Config/Needs/website: brand.yml
