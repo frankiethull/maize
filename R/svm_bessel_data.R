@@ -35,7 +35,7 @@ make_svm_bessel <- function() {
     eng = "kernlab",
     parsnip = "order",
     original = "order",
-    func = list(pkg = "dials", fun = "order"),
+    func = list(pkg = "maize", fun = "bessel_order"),
     has_submodel = FALSE
   )
 

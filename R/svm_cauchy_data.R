@@ -35,7 +35,7 @@ make_svm_cauchy <- function() {
     eng = "kernlab",
     parsnip = "sigma",
     original = "sigma",
-    func = list(pkg = "dials", fun = "sigma"),
+    func = list(pkg = "dials", fun = "rbf_sigma"),
     has_submodel = FALSE
   )
 

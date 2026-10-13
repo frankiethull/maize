@@ -35,7 +35,7 @@ make_svm_wavelet <- function() {
     eng = "kernlab",
     parsnip = "sigma",
     original = "sigma",
-    func = list(pkg = "dials", fun = "sigma"),
+    func = list(pkg = "dials", fun = "rbf_sigma"),
     has_submodel = FALSE
   )
 
@@ -44,7 +44,7 @@ make_svm_wavelet <- function() {
     eng = "kernlab",
     parsnip = "a",
     original = "a",
-    func = list(pkg = "dials", fun = "a"),
+    func = list(pkg = "maize", fun = "wavelet_a"),
     has_submodel = FALSE
   )
 
@@ -53,7 +53,7 @@ make_svm_wavelet <- function() {
     eng = "kernlab",
     parsnip = "c",
     original = "c",
-    func = list(pkg = "dials", fun = "c"),
+    func = list(pkg = "maize", fun = "wavelet_c"),
     has_submodel = FALSE
   )
 
@@ -62,7 +62,7 @@ make_svm_wavelet <- function() {
     eng = "kernlab",
     parsnip = "h",
     original = "h",
-    func = list(pkg = "dials", fun = "h"),
+    func = list(pkg = "maize", fun = "wavelet_h"),
     has_submodel = FALSE
   )
 
