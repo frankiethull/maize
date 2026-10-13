@@ -42,3 +42,4 @@ Suggests:
     tidyr
 VignetteBuilder: quarto, knitr
 URL: https://frankiethull.github.io/maize/
+Config/Needs/website: brand.yml
