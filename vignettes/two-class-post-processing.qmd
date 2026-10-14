@@ -237,7 +237,7 @@ svm_wkflow |>
     post_process
   )
 
-svm_cls_fit_tailor <- fit(tailored_wkflow, train, calibration = valid)
+svm_cls_fit_tailor <- fit(tailored_wkflow, train, data_calibration = valid)
 
 # with threshold and EQ buffer and logistic calibration
 svm_cls_fit_tailor |> 
