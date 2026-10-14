@@ -18,7 +18,7 @@ knitr:
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("devtools")
 install.packages("applicable")
-devtools::install_cran("isotree")
+install.packages("isotree")
 
 library(applicable)
 library(ggplot2)
