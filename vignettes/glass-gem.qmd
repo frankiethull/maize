@@ -15,6 +15,11 @@ knitr:
 #| message: false
 #| warning: false
 
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("devtools")
+install.packages("applicable")
+devtools::install_cran("isotree")
+
 library(applicable)
 library(ggplot2)
 library(kernlab)
