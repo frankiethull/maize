@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Space_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Space_Mono-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/Kode_Mono-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -89,60 +89,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"devtools"</span>, <span class="st">"probably"</span>, <span class="st">"ggplot2"</span>, <span class="st">"kernlab"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Installing packages into '/home/runner/work/_temp/Library'</span></span>
 <span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tidymodels/workflows"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.</span></span>
-<span><span class="co">#&gt; Downloading GitHub repo tidymodels/workflows@HEAD</span></span>
-<span><span class="co">#&gt; sparsevctrs (0.3.4 -&gt; 08efac807...) [GitHub]</span></span>
-<span><span class="co">#&gt; parsnip     (1.3.2 -&gt; 6d4c68477...) [GitHub]</span></span>
-<span><span class="co">#&gt; recipes     (1.3.1 -&gt; d269758cb...) [GitHub]</span></span>
-<span><span class="co">#&gt; Downloading GitHub repo r-lib/sparsevctrs@HEAD</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── R CMD build ─────────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; * checking for file ‘/tmp/RtmpYlrT98/remotes234a15d678ac/r-lib-sparsevctrs-08efac8/DESCRIPTION’ ... OK</span></span>
-<span><span class="co">#&gt; * preparing ‘sparsevctrs’:</span></span>
-<span><span class="co">#&gt; * checking DESCRIPTION meta-information ... OK</span></span>
-<span><span class="co">#&gt; * cleaning src</span></span>
-<span><span class="co">#&gt; * checking for LF line-endings in source and make files and shell scripts</span></span>
-<span><span class="co">#&gt; * checking for empty or unneeded directories</span></span>
-<span><span class="co">#&gt; * building ‘sparsevctrs_0.3.4.9000.tar.gz’</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"workflows"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Installing package into '/home/runner/work/_temp/Library'</span></span>
 <span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
-<span><span class="co">#&gt; Downloading GitHub repo tidymodels/parsnip@HEAD</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── R CMD build ─────────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; * checking for file ‘/tmp/RtmpYlrT98/remotes234a675f104a/tidymodels-parsnip-6d4c684/DESCRIPTION’ ... OK</span></span>
-<span><span class="co">#&gt; * preparing ‘parsnip’:</span></span>
-<span><span class="co">#&gt; * checking DESCRIPTION meta-information ... OK</span></span>
-<span><span class="co">#&gt; * installing the package to process help pages</span></span>
-<span><span class="co">#&gt; * checking for LF line-endings in source and make files and shell scripts</span></span>
-<span><span class="co">#&gt; * checking for empty or unneeded directories</span></span>
-<span><span class="co">#&gt; * building ‘parsnip_1.3.2.9000.tar.gz’</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tailor"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Installing package into '/home/runner/work/_temp/Library'</span></span>
 <span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
-<span><span class="co">#&gt; Downloading GitHub repo tidymodels/recipes@HEAD</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── R CMD build ─────────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; * checking for file ‘/tmp/RtmpYlrT98/remotes234a597070a9/tidymodels-recipes-d269758/DESCRIPTION’ ... OK</span></span>
-<span><span class="co">#&gt; * preparing ‘recipes’:</span></span>
-<span><span class="co">#&gt; * checking DESCRIPTION meta-information ... OK</span></span>
-<span><span class="co">#&gt; * checking for LF line-endings in source and make files and shell scripts</span></span>
-<span><span class="co">#&gt; * checking for empty or unneeded directories</span></span>
-<span><span class="co">#&gt; * building ‘recipes_1.3.1.9000.tar.gz’</span></span>
-<span><span class="co">#&gt; Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
-<span><span class="co">#&gt; ── R CMD build ─────────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; * checking for file ‘/tmp/RtmpYlrT98/remotes234a4b01c86c/tidymodels-workflows-835ee35/DESCRIPTION’ ... OK</span></span>
-<span><span class="co">#&gt; * preparing ‘workflows’:</span></span>
-<span><span class="co">#&gt; * checking DESCRIPTION meta-information ... OK</span></span>
-<span><span class="co">#&gt; * checking for LF line-endings in source and make files and shell scripts</span></span>
-<span><span class="co">#&gt; * checking for empty or unneeded directories</span></span>
-<span><span class="co">#&gt; * building ‘workflows_1.2.0.9000.tar.gz’</span></span>
-<span><span class="co">#&gt; Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tidymodels/tailor"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using github PAT from envvar GITHUB_PAT. Use `gitcreds::gitcreds_set()` and unset GITHUB_PAT in .Renviron (or elsewhere) if you want to use the more secure git credential store instead.</span></span>
-<span><span class="co">#&gt; Skipping install of 'tailor' from a github remote, the SHA1 (5d10216b) has not changed since last install.</span></span>
-<span><span class="co">#&gt;   Use `force = TRUE` to force installation</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://frankiethull.github.io/maize/">maize</a></span><span class="op">)</span></span>
@@ -151,6 +103,9 @@
 <span><span class="co">#&gt; The following object is masked from 'package:parsnip':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     check_args</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     var</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/probably" class="external-link">probably</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -160,7 +115,12 @@
 <span><span class="co">#&gt;     as.factor, as.ordered</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/tailor" class="external-link">tailor</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'ggplot2'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:maize':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     alpha</span></span></code></pre></div>
 </div>
 <p>The following example showcases the use of {maize} with post-processing libraries within the {tidymodels} ecosystem.</p>
 <p>A quote from a fellow R programmer:</p>
@@ -395,7 +355,7 @@
 <span>    <span class="va">post_process</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">svm_cls_fit_tailor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">tailored_wkflow</span>, <span class="va">train</span>, calibration <span class="op">=</span> <span class="va">valid</span><span class="op">)</span></span>
+<span><span class="va">svm_cls_fit_tailor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">tailored_wkflow</span>, <span class="va">train</span>, data_calibration <span class="op">=</span> <span class="va">valid</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># with threshold and EQ buffer and logistic calibration</span></span>
 <span><span class="va">svm_cls_fit_tailor</span> <span class="op">|&gt;</span> </span>
@@ -500,7 +460,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

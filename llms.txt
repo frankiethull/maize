@@ -1,0 +1,265 @@
+# {maize} package
+
+# maize
+
+{maize} 🌽 is an extension library for kernels & support vector machines
+adding onto the tidymodels ecosystem. Many of the kernels are ported
+from {kernlab}, additional kernels have been added directly to maize
+transposed from
+[Python](https://github.com/gmum/pykernels/blob/master/pykernels/regular.py)
+and
+[Julia](https://juliagaussianprocesses.github.io/KernelFunctions.jl/stable/kernels/)
+packages.
+
+The {parsnip} package offers three SVM kernel options: linear, radial
+basis function, and polynomial. Building on this, {maize} introduces
+additional kernels and supports a wider range of SVM engines. Beyond
+kernel & SVM expansion to {parsnip}, {maize} also adds SVM capabilities
+across other tidymodels libraries. These additions include extra
+pre-processing steps for {recipes}, one-class novelty detection for
+{applicable}, calibration and conformal inference tools for {probably},
+and a {corrr}-like interface for kernel canonical correlation analysis.
+
+## Installation
+
+You can install the development version of maize from
+[GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("pak")
+pak::pak("frankiethull/maize")
+```
+
+## engines
+
+#### {kernlab}
+
+SVMs with Specialty Kernels. Contains additional regression and
+classification techniques such as LS-SVMs.
+
+| {kernlab} bindings🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {parsnip} | svm_laplace | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_tanh | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_bessel | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_anova_rbf | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_spline | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_cossim | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_cauchy | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_tanimoto | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_sorenson | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_tstudent | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_fourier | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_wavelet | kernlab::ksvm | regression & classification |
+| {parsnip} | svm_string | kernlab::ksvm | classification |
+| {parsnip} | lssvm_laplace | kernlab::lssvm | classification |
+| {parsnip} | rvm_laplace | kernlab::rvm | regression |
+| {parsnip} | kqr_laplace | kernlab::kqr | regression |
+
+#### {mildsvm}
+
+Multi-Instance Learners with SVMs. In particular, MIL with ordinal
+outcomes using One-vs-All.
+
+| {mildsvm} bindings🌽 |                 |                      |                |
+|:---------------------|:----------------|:---------------------|:---------------|
+| extension            | maize           | engine               | mode           |
+| {parsnip}            | misvm_orova_rbf | mildsvm::misvm_orova | classification |
+
+#### {ebmc}
+
+Bagging and Boosting weak learners via Random Under Sampling for binary
+classification.
+
+| {ebmc} bindings🌽 |                       |             |                       |
+|:------------------|:----------------------|:------------|:----------------------|
+| extension         | maize                 | engine      | mode                  |
+| {parsnip}         | bag_svm_laplace       | ebmc::ub    | binary-classification |
+| {parsnip}         | rus_boost_svm_laplace | ebmc::rus   | binary-classification |
+| {parsnip}         | ada_boost_svm_laplace | ebmc::adam2 | binary-classification |
+
+### recipes
+
+Steps for feature engineering data via kernel related methods.
+
+| pre-processors🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {recipes} | step_kpca_laplace | kernlab::kpca | transformation steps |
+| {recipes} | step_kpca_tanh | kernlab::kpca | transformation steps |
+| {recipes} | step_kha_laplace | kernlab::kha | transformation steps |
+| {recipes} | step_kha_tanh | kernlab::kha | transformation steps |
+| {recipes} | step_kfa_laplace | kernlab::kfa | transformation steps |
+| {recipes} | step_kfm_nystrom | mildsvm::kfm_nystrom | transformation steps |
+
+### probably
+
+Point calibration and conformal quantile regression with SVMs (QRSVM)
+for prediction intervals.
+
+| post-processors🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {probably} | int_conformal_quantile_svm | qrsvm::qrsvm | prediction intervals |
+| {probably} | cal_estimate_svm | kernlab::ksvm | calibrator |
+
+### modeltime
+
+A special implementation of SVMs for time series regression. ARIMA &
+AutoARIMA with SVM Errors are registered in maize. The *harvestime*
+vignette showcases how-to-use ARIMA-SVMs & Recursive SVMs.
+
+| {modeltime} bindings🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {modeltime} | arima_svm_laplace | forecast::Arima + maize::svm_laplace | regression |
+
+### applicable
+
+One-Class SVMs for novelty detection
+
+| applicability🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {applicable} | apd_svm_novel_detection | kernlab::ksvm | one-SVC novelty detection |
+
+### corrr
+
+Inspired by corrr, returns a tidy data frame class (kcor_df) for Kernel
+Canonical Correlation Analysis:
+
+| KCCA🌽 |  |  |  |
+|:---|:---|:---|:---|
+| extension | maize | engine | mode |
+| {corrr} | kcca_correlate | kernlab::kcca | kernel canonical correlation analysis |
+
+# Package index
+
+## All functions
+
+- [`ada_boost_svm_rbf()`](https://frankiethull.github.io/maize/reference/ada_boost_svm_rbf.md)
+  : AdaBoost SVM with Radial Basis Function Kernel
+
+- [`apd_svm_novel_detection()`](https://frankiethull.github.io/maize/reference/apd_svm_novel_detection.md)
+  : Fit an SVM novelty detection model to estimate an applicability
+  domain.
+
+- [`arima_svm_laplace()`](https://frankiethull.github.io/maize/reference/arima_svm_laplace.md)
+  : General Interface for "Support Vector Machine" ARIMA Regression
+  Models
+
+- [`autoplot(`*`<kcor_df>`*`)`](https://frankiethull.github.io/maize/reference/autoplot.kcor_df.md)
+  : visualize component x-y feature space
+
+- [`bag_svm_rbf()`](https://frankiethull.github.io/maize/reference/bag_svm_rbf.md)
+  : RUS Bagged SVM with Radial Basis Function Kernel
+
+- [`cal_estimate_svm()`](https://frankiethull.github.io/maize/reference/cal_estimate_svm.md)
+  : Uses a support vector regression model to calibrate numeric
+  predictions
+
+- [`corn_data`](https://frankiethull.github.io/maize/reference/corn_data.md)
+  : Synthetic Corn Dataset for Corny Example
+
+- [`int_conformal_quantile_svm()`](https://frankiethull.github.io/maize/reference/int_conformal_quantile_svm.md)
+  : Prediction intervals via conformal inference and QRSVM
+
+- [`kcca_correlate()`](https://frankiethull.github.io/maize/reference/kcca_correlate.md)
+  : Kernel Canonical Correlation Analysis
+
+- [`kqr_laplace()`](https://frankiethull.github.io/maize/reference/kqr_laplace.md)
+  : Laplacian Kernel Quantile Regression
+
+- [`lssvm_laplace()`](https://frankiethull.github.io/maize/reference/lssvm_laplace.md)
+  : Laplacian Least Squares Support Vector Machine
+
+- [`misvm_orova_rbf()`](https://frankiethull.github.io/maize/reference/misvm_orova_rbf.md)
+  : Multiple Instance SVMs for Ordinal Outcome Data, One-Vs-All, with
+  Radial Basis Function Kernel
+
+- [`rus_boost_svm_rbf()`](https://frankiethull.github.io/maize/reference/rus_boost_svm_rbf.md)
+  : RUSBoost SVM with Radial Basis Function Kernel
+
+- [`rvm_laplace()`](https://frankiethull.github.io/maize/reference/rvm_laplace.md)
+  : Laplacian Relevance Vector Machine (Experimental RVM)
+
+- [`score(`*`<apd_svm_novel_detection>`*`)`](https://frankiethull.github.io/maize/reference/score.apd_svm_novel_detection.md)
+  :
+
+  Predict from a `apd_svm_novel_detection`
+
+- [`step_kfa_laplace()`](https://frankiethull.github.io/maize/reference/step_kfa_laplace.md)
+  : Laplacian function kernel KFA signal extraction
+
+- [`step_kfm_nystrom()`](https://frankiethull.github.io/maize/reference/step_kfm_nystrom.md)
+  : Nystrom kernel feature map approximation (RBF)
+
+- [`step_kha_laplace()`](https://frankiethull.github.io/maize/reference/step_kha_laplace.md)
+  : Laplacian function kernel PCA signal extraction via Hebbian
+  Algorithm
+
+- [`step_kha_tanh()`](https://frankiethull.github.io/maize/reference/step_kha_tanh.md)
+  : tanh function kernel PCA signal extraction via Hebbian Algorithm
+
+- [`step_kpca_laplace()`](https://frankiethull.github.io/maize/reference/step_kpca_laplace.md)
+  : Laplacian function kernel PCA signal extraction
+
+- [`step_kpca_tanh()`](https://frankiethull.github.io/maize/reference/step_kpca_tanh.md)
+  : Laplacian function kernel PCA signal extraction
+
+- [`svm_anova_rbf()`](https://frankiethull.github.io/maize/reference/svm_anova_rbf.md)
+  : ANOVA RBF Support Vector Machine
+
+- [`svm_bessel()`](https://frankiethull.github.io/maize/reference/svm_bessel.md)
+  : Bessel Support Vector Machine
+
+- [`svm_cauchy()`](https://frankiethull.github.io/maize/reference/svm_cauchy.md)
+  : Cauchy Support Vector Machine
+
+- [`svm_cossim()`](https://frankiethull.github.io/maize/reference/svm_cossim.md)
+  : Cosine Similarity Support Vector Machine
+
+- [`svm_fourier()`](https://frankiethull.github.io/maize/reference/svm_fourier.md)
+  : Fourier Support Vector Machine
+
+- [`svm_laplace()`](https://frankiethull.github.io/maize/reference/svm_laplace.md)
+  : Laplacian Support Vector Machine
+
+- [`svm_sorensen()`](https://frankiethull.github.io/maize/reference/svm_sorensen.md)
+  : Sorensen Support Vector Machine
+
+- [`svm_spline()`](https://frankiethull.github.io/maize/reference/svm_spline.md)
+  : Spline Support Vector Machine
+
+- [`svm_string()`](https://frankiethull.github.io/maize/reference/svm_string.md)
+  : String Support Vector Machine
+
+- [`svm_tanh()`](https://frankiethull.github.io/maize/reference/svm_tanh.md)
+  : Hyperbolic Tangent Support Vector Machine
+
+- [`svm_tanimoto()`](https://frankiethull.github.io/maize/reference/svm_tanimoto.md)
+  : Tanimoto Support Vector Machine
+
+- [`svm_tstudent()`](https://frankiethull.github.io/maize/reference/svm_tstudent.md)
+  : T-Student Support Vector Machine
+
+- [`svm_wavelet()`](https://frankiethull.github.io/maize/reference/svm_wavelet.md)
+  : Wavelet Support Vector Machine
+
+# Articles
+
+### All vignettes
+
+- [ensembling weak learners in
+  maize](https://frankiethull.github.io/maize/articles/ensembling_weak_learners.md):
+- [new engines in
+  maize](https://frankiethull.github.io/maize/articles/extending_kernlab_support.md):
+- [glass-gem](https://frankiethull.github.io/maize/articles/glass-gem.md):
+- [harvestime](https://frankiethull.github.io/maize/articles/harvestime.md):
+- [perchance](https://frankiethull.github.io/maize/articles/perchance.md):
+- [pre-processors in
+  maize](https://frankiethull.github.io/maize/articles/pre-processors-in-maize.md):
+- [SVMs](https://frankiethull.github.io/maize/articles/SVMs.md):
+- [two-class-post-processing](https://frankiethull.github.io/maize/articles/two-class-post-processing.md):
