@@ -17,7 +17,7 @@ knitr:
 
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("devtools")
-devtools::install_github("tidymodels/applicable@develop")
+install.packages("applicable")
 devtools::install_cran("isotree")
 
 library(applicable)
