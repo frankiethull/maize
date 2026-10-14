@@ -12,6 +12,13 @@ knitr:
 
 ```{r}
 #| label: setup
+# inst dev versions for tailor and add_tailor
+# inst pkgs for example purposes & r-universe 
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages(c("devtools", "probably", "ggplot2", "kernlab"))
+install.packages("workflows")
+install.packages("tailor")
+
 library(parsnip)
 library(maize)
 
