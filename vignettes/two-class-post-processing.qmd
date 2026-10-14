@@ -16,8 +16,8 @@ knitr:
 # inst pkgs for example purposes & r-universe 
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages(c("devtools", "probably", "ggplot2", "kernlab"))
-devtools::install_github("tidymodels/workflows")
-devtools::install_github("tidymodels/tailor")
+install.packages("workflows")
+install.packages("tailor")
 
 library(parsnip)
 library(maize)
@@ -237,7 +237,7 @@ svm_wkflow |>
     post_process
   )
 
-svm_cls_fit_tailor <- fit(tailored_wkflow, train, calibration = valid)
+svm_cls_fit_tailor <- fit(tailored_wkflow, train, data_calibration = valid)
 
 # with threshold and EQ buffer and logistic calibration
 svm_cls_fit_tailor |> 
